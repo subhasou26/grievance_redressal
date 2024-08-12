@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Reset default margin and padding */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Header styling */
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 0 20px; /* Add padding for spacing inside the header */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box; /* Include padding in the element's total width */
+            position: fixed; /* Keep the header fixed at the top */
+            top: 0;
+            left: 0;
+            height: 60px; /* Adjust the height as needed */
+            z-index: 1000; /* Ensure the header stays on top of other content */
+        }
+
+        .header-left {
+            font-size: 24px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right span {
+            margin-right: 20px;
+        }
+
+        .header-right a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .header-right a:hover {
+            color: #ccc;
+        }
+
+        #logout-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #logout-btn:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Ensure content starts below the header */
+        body {
+            padding-top: 60px; /* This should match the height of the header */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <h1>ComplaintConnect</h1>
+        </div>
+        <div class="header-right">
+            <span>Welcome, Admin</span>
+            <a href="#" id="about-us-link">About Us</a>
+            <a href="#" id="change-password-link">Change Password</a>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+</body>
+</html>

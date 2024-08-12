@@ -1,0 +1,12 @@
+/* admin.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Additional styles for debugging */
+#header {
+    border: 1px solid red; /* Temporary style to ensure the header placeholder is visible */
+}
