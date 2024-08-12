@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create User</title>
+  <link rel="stylesheet" type="text/css" href="/css/create-user.css">
+</head>
+<body>
+  <form id="create-user-form" action="/api/admin/create-user" method="POST">
+    <h2>Create User</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+      <option value="">Select a role</option>
+      <option value="employee">employee</option>
+      <option value="manager">manager</option>
+      <option value="municipal">municipal</option>
+      <option value="ngo">ngo</option>
+      <option value="admin">admin</option>
+    </select>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+   
+    <!-- <div id="error-message"></div>
+    <div id="password-container">
+      <label for="generated-password">Generated Password:</label>
+      <input type="text" id="generated-password" readonly name="password">
+    </div> -->
+    <button type="submit">Create User</button>
+  </form>
+
+  <!-- <script src="/js/create-user.js"></script> -->
+</body>
+</html>
