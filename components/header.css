@@ -1,48 +1,94 @@
 /* header.css */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Header.css */
 
 .header {
     background-color: #333;
     color: #fff;
-    padding: 1em;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ensure it spans the full width */
-    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 1000;
 }
 
-.header-left {
+.menu-btn {
     font-size: 24px;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-}
-
-.header-right span {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
     margin-right: 20px;
 }
 
-.header-right a {
+.menu-btn:focus {
+    outline: none;
+}
+
+.nav-bar {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 200px;
+    background-color: #444;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar li {
+    margin-bottom: 10px;
+}
+
+.nav-bar a {
     color: #fff;
     text-decoration: none;
-    margin-right: 20px;
 }
 
-.header-right a:hover {
-    color: #ccc;
+.nav-bar a:hover {
+    text-decoration: underline;
 }
 
-#logout-btn {
-    background-color: #4CAF50;
+.nav-bar.visible {
+    display: block;
+}
+
+#dark-mode-toggle {
+    margin-left: 10px;
+}
+
+body.dark-mode {
+    background-color: #121212;
     color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
 }
 
-#logout-btn:hover {
-    background-color: #3e8e41;
+body.dark-mode .header {
+    background-color: #222;
+}
+
+body.dark-mode .nav-bar {
+    background-color: #333;
+}
+
+body.dark-mode a {
+    color: #bbb;
 }

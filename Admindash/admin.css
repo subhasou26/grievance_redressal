@@ -4,9 +4,103 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding-top: 60px; /* This should match the height of the header */
 }
 
-/* Additional styles for debugging */
 #header {
-    border: 1px solid red; /* Temporary style to ensure the header placeholder is visible */
+    width: 100%;
+}
+/* header.css */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Header.css */
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    z-index: 1000;
+}
+
+.menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.menu-btn:focus {
+    outline: none;
+}
+
+.nav-bar {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 200px;
+    background-color: #444;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar li {
+    margin-bottom: 10px;
+}
+
+.nav-bar a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    text-decoration: underline;
+}
+
+.nav-bar.visible {
+    display: block;
+}
+
+#dark-mode-toggle {
+    margin-left: 10px;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+body.dark-mode .header {
+    background-color: #222;
+}
+
+body.dark-mode .nav-bar {
+    background-color: #333;
+}
+
+body.dark-mode a {
+    color: #bbb;
 }

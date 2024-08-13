@@ -17,21 +17,32 @@
         .header {
             background-color: #333;
             color: #fff;
-            padding: 0 20px; /* Add padding for spacing inside the header */
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            box-sizing: border-box; /* Include padding in the element's total width */
-            position: fixed; /* Keep the header fixed at the top */
+            box-sizing: border-box;
+            position: fixed;
             top: 0;
             left: 0;
-            height: 60px; /* Adjust the height as needed */
-            z-index: 1000; /* Ensure the header stays on top of other content */
+            height: 60px;
+            z-index: 1000;
+            transition: background-color 0.4s ease, box-shadow 0.4s ease; /* Transition for smooth color and shadow changes */
         }
 
         .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-btn {
             font-size: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            margin-right: 20px;
         }
 
         .header-right {
@@ -66,16 +77,196 @@
             background-color: #3e8e41;
         }
 
+        /* Navigation bar styling */
+        .nav-bar {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            
+            background-color: #444;
+            padding: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            border-radius: 0 10px 10px 0;
+            width: 250px; /* Increased width to make navbar longer */
+            padding: 20px; /* Added padding to create space between options */
+
+        }
+
+        .nav-bar.visible {
+            display: block;
+        }
+
+        .nav-bar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-bar ul li {
+            
+            margin-bottom: 20px; /* Added margin to create space between options */
+            border-bottom: 1px solid #fbf9f9; /* Added border to create partition between options */
+            padding-bottom: 10px;
+
+        }
+
+        .nav-bar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-bar ul li a:hover {
+            color: #ccc;
+        }
+
+        .nav-bar ul li:last-child {
+             border-bottom: none; /* Remove border from last option */
+        }
+
+        .toggle-switch {
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+            position: relative;
+            border-radius: 10px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+
+                /* Add crescent moon symbol to toggle switch */
+        .toggle-switch input:checked + .slider:before {
+            content: "\263D"; /* Unicode for crescent moon symbol */
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            line-height: 16px;
+            border: 1px solid #fff;
+            position:absolute;
+        }
+
         /* Ensure content starts below the header */
         body {
-            padding-top: 60px; /* This should match the height of the header */
+            padding-top: 60px;
         }
+
+        /* Dark mode specific styles */
+        body.dark-mode {
+            background-color: #333;
+            border: 1px #fff;
+        }
+
+        body.dark-mode .header {
+            background-color: #222;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); /* Add shadow to distinguish header */
+        }
+
+        body.dark-mode .nav-bar {
+            background-color: #555;
+            
+        }
+
+        body.dark-mode #logout-btn {
+            background-color: #4CAF50;
+        }
+
+        /* Create User Form styling */
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            padding-right: 30px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+  
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+  
+        input[type="text"], input[type="email"], select {
+            width: 400px;
+            height: 20px;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px; /* Add margin bottom to input fields */
+        }
+  
+        select {
+            height: 40px;
+            margin-bottom: 30px; /* Add extra margin bottom to select field */
+        }
+  
+        button[type="submit"] {
+            width: 100%;
+            height: 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+  
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+  
+        #error-message {
+            color: red;
+            margin-bottom: 20px;
+        }
+  
+  
+
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-left">
-            <h1>ComplaintConnect</h1>
+            <button class="menu-btn" id="menu-btn">&#9776;</button> <!-- Menu button -->
+            <h1><b>ComplaintConnect</b></h1>
         </div>
         <div class="header-right">
             <span>Welcome, Admin</span>
@@ -84,5 +275,109 @@
             <button id="logout-btn">Logout</button>
         </div>
     </header>
+
+    <!-- Navigation bar -->
+    <nav class="nav-bar" id="nav-bar">
+        <ul>
+            <li><a href="#" id="create-user-link">Create User</a></li>
+            <li><a href="#">Delete User</a></li>
+            <li>
+                <label for="theme-switch">Dark Mode</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider"></span>
+                </label>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Create User Form -->
+    <div id="create-user-form">
+        <form id="create-user-form">
+            <label for="create-user-form-name">Name:</label>
+            <input type="text" id="create-user-form-name" name="name"><br><br>
+            <label for="create-user-form-email">Email:</label>
+            <input type="email" id="create-user-form-email" name="email"><br><br>
+            <label for="create-user-form-role">Role:</label>
+            <select id="create-user-form-role" name="role">
+              <option value="public_user">Public User</option>
+              <option value="ngo">NGO</option>
+              <option value="municipality">Municipality</option>
+            </select><br><br>
+            <button id="create-user-form-submit">Create User</button>
+            <button id="create-user-form-close">Close</button>
+          </form>
+    </div>
+    <script>
+        // JavaScript for handling the menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const navBar = document.getElementById('nav-bar');
+        menuBtn.addEventListener('click', () => {
+          navBar.classList.toggle('visible');
+        });
+      
+        // JavaScript for handling theme switching
+        const themeSwitch = document.getElementById('theme-switch');
+        themeSwitch.addEventListener('change', () => {
+          document.body.classList.toggle('dark-mode', themeSwitch.checked);
+        });
+      
+        // JavaScript for handling create user form toggle
+        const createUserLink = document.getElementById('create-user-link');
+        const createUserForm = document.getElementById('create-user-form');
+        const createUserFormClose = document.getElementById('create-user-form-close');
+      
+        createUserLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          createUserForm.style.display = 'block';
+        });
+      
+        // Add event listener to close the form when clicked outside
+        document.addEventListener('click', (e) => {
+          if (e.target !== createUserForm && e.target.parentNode !== createUserForm && e.target !== createUserLink) {
+            createUserForm.style.display = 'none';
+          }
+        });
+      
+        // Add event listener to close the form when close button is clicked
+        createUserFormClose.addEventListener('click', () => {
+          createUserForm.style.display = 'none';
+        });
+      
+        // JavaScript for handling create user form submission
+        const createUserFormSubmit = document.getElementById('create-user-form-submit');
+        const createUserFormName = document.getElementById('create-user-form-name');
+        const createUserFormEmail = document.getElementById('create-user-form-email');
+        const createUserFormRole = document.getElementById('create-user-form-role');
+      
+        createUserFormSubmit.addEventListener('click', (e) => {
+          e.preventDefault();
+          const name = createUserFormName.value.trim();
+          const email = createUserFormEmail.value.trim();
+          const role = createUserFormRole.value.trim();
+      
+          if (name === '' || email === '' || role === '') {
+            alert('Please fill in all fields.');
+            return;
+          }
+      
+          // Add your logic to create a new user here
+          // For example, you can send a request to your server to create a new user
+          // fetch('/create-user', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   },
+          //   body: JSON.stringify({
+          //     name,
+          //     email,
+          //     role
+          //   })
+          // })
+          // .then((response) => response.json())
+          // .then((data) => console.log(data))
+          // .catch((error) => console.error(error));
+        });
+      </script>
 </body>
 </html>
