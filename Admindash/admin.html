@@ -204,36 +204,6 @@
         }
 
 
-        .profile-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        .profile-info {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .profile-info h2 {
-            margin: 10px 0;
-        }
-
-        .profile-info p {
-            margin: 5px 0;
-        }
    
 
         /* Create User Form styling */
@@ -383,6 +353,39 @@
             background-color: #444;
         }
 
+        .profile-btn {
+            text-align: center;
+        }
+
+        .profile-button {
+            background-color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 10px;
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .profile-button img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .profile-btn span {
+            font-size: 14px;
+            display: block;
+            text-align: center;
+            margin-top: 5px;
+        }
+
         body.dark-mode table, 
         body.dark-mode th, 
         body.dark-mode td {
@@ -407,6 +410,14 @@
     <!-- Navigation bar -->
     <nav class="nav-bar" id="nav-bar">
         <ul>
+            <li class="profile-btn">
+                <a href="profile.html">
+                <button class="profile-button">
+                    <img src="profile-icon.png" alt="Profile Icon" width="30" height="30" style="border-radius: 50%;">
+                </button>
+                <span>Your Profile</span>
+            </li>
+
             <li><a href="#" id="create-user-link">Create User</a></li>
             <li><a href="#">Delete User</a></li>
             <li>
@@ -487,10 +498,12 @@
         const navBar = document.getElementById('nav-bar');
         const createUserForm = document.getElementById('create-user-form');
         const createUserLink = document.getElementById('create-user-link');
+        
 
         menuBtn.addEventListener('click', function() {
             navBar.classList.toggle('visible');
         });
+        
 
         // Show the Create User form when the link is clicked
         createUserLink.addEventListener('click', function(event) {
