@@ -4,394 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <style>
-        /* Reset default margin and padding */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-        }
-
-        /* Header styling */
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            box-sizing: border-box;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 60px;
-            z-index: 1000;
-            transition: background-color 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .menu-btn {
-            font-size: 24px;
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            margin-right: 20px;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .header-right span {
-            margin-right: 20px;
-        }
-
-        .header-right a {
-            color: #fff;
-            text-decoration: none;
-            margin-right: 20px;
-        }
-
-        .header-right a:hover {
-            color: #ccc;
-        }
-
-        #logout-btn {
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #logout-btn:hover {
-            background-color: #3e8e41;
-        }
-
-        /* Navigation bar styling */
-        .nav-bar {
-            display: none;
-            position: fixed;
-            top: 60px;
-            left: 0;
-            background-color: #444;
-            padding: 10px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            border-radius: 0 10px 10px 0;
-            width: 250px;
-            padding: 20px;
-        }
-
-        .nav-bar.visible {
-            display: block;
-        }
-
-        .nav-bar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-bar ul li {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #fbf9f9;
-            padding-bottom: 10px;
-        }
-
-        .nav-bar ul li a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .nav-bar ul li a:hover {
-            color: #ccc;
-        }
-
-        .nav-bar ul li:last-child {
-            border-bottom: none;
-        }
-
-        .toggle-switch {
-            display: inline-block;
-            width: 34px;
-            height: 20px;
-            position: relative;
-            border-radius: 10px;
-            background-color: #ccc;
-            cursor: pointer;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #4CAF50;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(14px);
-        }
-
-        /* Add crescent moon symbol to toggle switch */
-        .toggle-switch input:checked + .slider:before {
-            content: "\263D";
-            font-size: 16px;
-            color: #fff;
-            text-align: center;
-            line-height: 16px;
-            border: 1px solid #fff;
-            position:absolute;
-        }
-
-        /* Ensure content starts below the header */
-        body {
-            padding-top: 60px;
-        }
-
-        /* Dark mode specific styles */
-        body.dark-mode {
-            background-color: #333;
-            color: #fff;
-        }
-
-        body.dark-mode .header {
-            background-color: #222;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        body.dark-mode .nav-bar {
-            background-color: #555;
-        }
-
-        body.dark-mode #logout-btn {
-            background-color: #4CAF50;
-        }
-
-
-   
-
-        /* Create User Form styling */
-        form {
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            padding-right: 30px;
-            background-color: rgba(22, 21, 21, 0.2);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"], input[type="email"], select {
-            width: 100%;
-            padding: 10px;
-            font-size: 18px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-        }
-
-        select {
-            height: 40px;
-            margin-bottom: 30px;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3e8e41;
-        }
-
-        #error-message {
-            color: red;
-            margin-bottom: 20px;
-        }
-
-        /* Container for rectangles */
-        .container {
-            display: flex;
-            justify-content: space-between;
-            margin: 80px 20px 20px 20px;
-        }
-
-        .box {
-            flex: 1;
-            width: 45%; /* Adjust the width as needed */
-            height: 150px; /* Set a fixed height */
-            display: inline-block;
-            vertical-align: top;
-    
-            padding: 20px;
-            margin: 10px;
-            color: #fff;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
-        }
-
-        .box:hover {
-            transform: translateY(-5px);
-        }
-
-        .active-complaints {
-            background-color: #ff6f61;
-        }
-
-        .resolved-complaints {
-            background-color: #4CAF50;
-        }
-
-        .table-container {
-            margin: 20px;
-            padding: 20px;
-            overflow-y: auto;  /* Enable vertical scrollbar */
-            overflow-x: hidden;
-            background-color: rgba(0, 0, 0, 0.05);
-            border:1px solid;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        /* Search bar styling */
-        .search-container {
-            margin-bottom: 10px;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        /* Dark mode specific styles */
-        body.dark-mode .box {
-            color: #fff;
-        }
-
-        body.dark-mode .active-complaints {
-            background-color: #ff3b30;
-        }
-
-        body.dark-mode .resolved-complaints {
-            background-color: #34c759;
-        }
-
-        body.dark-mode .table-container {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        body.dark-mode th {
-            background-color: #444;
-        }
-
-        .profile-btn {
-            text-align: center;
-        }
-
-        .profile-button {
-            background-color: #fff;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 10px;
-            margin: 0 auto;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #fff;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .profile-button img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-        }
-
-        .profile-btn span {
-            font-size: 14px;
-            display: block;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        body.dark-mode table, 
-        body.dark-mode th, 
-        body.dark-mode td {
-            border-color: #666;
-        }
-    </style>
+    <link rel="stylesheet" href="admincs.css">
+    <script src="adminjs.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -408,11 +22,11 @@
     </header>
 
     <!-- Navigation bar -->
+
     <nav class="nav-bar" id="nav-bar">
         <ul>
             <li class="profile-btn">
-                <a href="profile.html">
-                <button class="profile-button">
+                <button class="profile-button" id="profile-button">
                     <img src="profile-icon.png" alt="Profile Icon" width="30" height="30" style="border-radius: 50%;">
                 </button>
                 <span>Your Profile</span>
@@ -429,8 +43,24 @@
             </li>
         </ul>
     </nav>
-
+<div id="overlay">
+<!--profile section-->
+<div class="profile-container" id="profile-container">
+        <h2>Profile</h2>
+        <img src="https://via.placeholder.com/100" alt="Profile Picture">
+        <h3>User ID</h3>
+        <p id="user-id">12345</p>
+        <h3>Name</h3>
+        <div id="name-container">
+            <p id="name" class="view-mode">John Doe</p>
+            <input type="text" id="name-input" class="edit-mode">
+        </div>
+        <h3>Email</h3>
+        <p id="email">john.doe@example.com</p>
+        <button onclick="editName()">Edit</button>
+    </div>
     <!-- Create User Form -->
+    <div id="formdiv">
     <form id="create-user-form">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required>
@@ -443,12 +73,10 @@
             <option value="admin">Admin</option>
             <option value="user">User</option>
         </select>
-
         <div id="error-message"></div>
-
         <button type="submit">Create User</button>
     </form>
-
+	</div>
     <!-- Container for rectangles -->
     <div class="container">
         <div class="box active-complaints">
@@ -460,9 +88,7 @@
             <p>50</p> <!-- Replace with dynamic content -->
         </div>
     </div>
-
-    
-
+</div>
     <!-- Table with Search -->
     <div class="table-container">
         <div class="search-container">
@@ -492,46 +118,5 @@
         </table>
     </div>
 
-    <script>
-        // Toggle navigation bar visibility
-        const menuBtn = document.getElementById('menu-btn');
-        const navBar = document.getElementById('nav-bar');
-        const createUserForm = document.getElementById('create-user-form');
-        const createUserLink = document.getElementById('create-user-link');
-        
-
-        menuBtn.addEventListener('click', function() {
-            navBar.classList.toggle('visible');
-        });
-        
-
-        // Show the Create User form when the link is clicked
-        createUserLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            createUserForm.style.display = createUserForm.style.display === 'none' || createUserForm.style.display === '' ? 'block' : 'none';
-        });
-
-        // Toggle dark mode
-        const themeSwitch = document.getElementById('theme-switch');
-        themeSwitch.addEventListener('change', function() {
-            document.body.classList.toggle('dark-mode');
-        });
-
-        // JavaScript for search functionality
-        const searchBar = document.getElementById('search-bar');
-        searchBar.addEventListener('input', function() {
-            const filter = searchBar.value.toUpperCase();
-            const table = document.querySelector('table');
-            const tr = table.getElementsByTagName('tr');
-
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName('td')[1]; // Complaint No column
-                if (td) {
-                    const txtValue = td.textContent || td.innerText;
-                    tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
-                }
-            }
-        });
-    </script>
 </body>
 </html>
