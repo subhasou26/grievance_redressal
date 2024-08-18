@@ -11,7 +11,7 @@ require("dotenv").config();
 const router = express.Router();
 
 router.get("/register", (req, res) => {
-  res.render("signup.ejs");
+  res.render("auth/signup.ejs");
 });
 
 // Public: Register account
@@ -39,7 +39,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login.ejs");
+  res.render("auth/login.ejs");
 });
 // Login
 router.post("/login", async (req, res) => {
@@ -74,7 +74,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/forgot-password",(req,res)=>{
-  res.render("forgot-password.ejs");
+  res.render("auth/forgot-password.ejs");
 })
 
 router.post("/forgot-password",async(req,res)=>{
@@ -108,7 +108,7 @@ router.post("/forgot-password",async(req,res)=>{
     .catch((error) => console.log(error));
 
   res
-    .render("enter-otp.ejs");
+    .render("auth/enter-otp.ejs");
 
   } catch (error) {
     console.log(error);

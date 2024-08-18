@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/admin", [auth, adminAuth],(req,res)=>{
     
-    res.render('admin-dash.ejs');
+    res.render('admin/admin-dash.ejs');
 });
 
 module.exports=router;

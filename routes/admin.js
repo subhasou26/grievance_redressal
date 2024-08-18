@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/create-user", [auth, adminAuth], (req, res) => {
   // res.send("hello");
 
-  res.render("create-user.ejs");
+  res.render("admin/create-user.ejs");
 });
 // Admin: Create user (employee, manager, ngo, municipal)
 router.post("/create-user", [auth, adminAuth], async (req, res) => {
