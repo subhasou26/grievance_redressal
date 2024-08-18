@@ -29,6 +29,7 @@ app.use(cookieParser());
 // Define Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
+app.use("/api/dashbord",require("./routes/dash"));
 //app.use('/api/admin',require('./routes/admin'));
 // Default Route
 app.get('/', (req, res) => res.send('API Running'));

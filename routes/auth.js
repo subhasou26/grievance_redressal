@@ -1,85 +1,154 @@
 // routes/auth.js
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
-const User = require('../models/user');
-const { auth, adminAuth } = require('../middleware/auth');
-require('dotenv').config();
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const { auth, adminAuth } = require("../middleware/auth");
+const sendMail=require("../utils/mail");
+const crypto=require("crypto");
+require("dotenv").config();
 
 const router = express.Router();
 
-// Nodemailer configuration
-const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  auth: {
-    user: 'carolyne.dickens28@ethereal.email',
-    pass: 'HESUk8JfT5hmgmAwR8'
-  }
-});
-
-
-
-router.get("/register",(req,res)=>{
+router.get("/register", (req, res) => {
   res.render("signup.ejs");
 });
 
 // Public: Register account
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
+      return res.status(400).json({ msg: "User already exists" });
     }
 
     user = new User({
       name,
       email,
       password: await bcrypt.hash(password, 10),
-      role: 'public'
+      role: "public",
     });
 
     await user.save();
-    res.status(201).json({ msg: 'User registered successfully' });
+    res.status(201).json({ msg: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
-
-router.get("/login",(req,res)=>{
+router.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 // Login
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!user) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token',token,{
-      httpOnly:true,
-      maxAge:5 * 60 * 60 * 1000,// 5 hour
-      sameSite: 'Strict'
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1 * 60 * 60 * 1000, // 5 hour
+      sameSite: "Strict",
     });
-    
-    res.json({ token });
+    res.redirect(`/api/dashbord/${user.role}`);
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
 });
 
-router.get("/logout",(req,res)=>{
-  res.clearCookie('token');
-  res.send("You are logout sussfully");
+router.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/api/auth/login");
+});
+
+router.get("/forgot-password",(req,res)=>{
+  res.render("forgot-password.ejs");
+})
+
+router.post("/forgot-password",async(req,res)=>{
+  const {email}=req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ msg: 'No user found with that email address' });
+    }
+
+    // Generate OTP
+    const otp = crypto.randomInt(100000, 999999).toString(); // 6-digit OTP
+    const expires = Date.now() + 15 * 60 * 1000; // 15 minutes from now
+
+    user.resetPasswordToken = otp;
+    user.resetPasswordExpires = expires;
+
+    await user.save();
+
+    // Send OTP via email
+   
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: 'Password Reset OTP',
+      text: `Your OTP for password reset is: ${otp}. It is valid for 15 minutes.`,
+    };
+
+    sendMail(mailOptions)
+    .then((result) => console.log("Email send..."))
+    .catch((error) => console.log(error));
+
+  res
+    .render("enter-otp.ejs");
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+router.post("/reset-password",async (req,res)=>{
+  const { email, otp, newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user || !user.resetPasswordToken || !user.resetPasswordExpires) {
+      return res.status(400).json({ msg: 'Invalid request or expired OTP' });
+    }
+
+    if (user.resetPasswordToken !== otp) {
+      return res.status(400).json({ msg: 'Invalid OTP' });
+    }
+
+    if (user.resetPasswordExpires < Date.now()) {
+      return res.status(400).json({ msg: 'OTP has expired' });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    // Clear resetPasswordToken and resetPasswordExpires
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.json({ msg: 'Password has been reset successfully' });
+
+  } catch (error) {
+    res.status(500).json({ msg: 'Server error' });
+  }
 });
 
 module.exports = router;
