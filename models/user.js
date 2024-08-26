@@ -21,6 +21,15 @@ const UserSchema = new mongoose.Schema({
     default:'public',
     
   },
+  address: { 
+    street: {type:String,required:true},
+    city: {type:String,required:true},
+    state: {type:String,required:true},
+    zipcode: {type:String,required:true},
+   
+  },
+
+
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   createdAt: {

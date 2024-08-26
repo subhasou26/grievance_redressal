@@ -1,53 +1,37 @@
-// Function to generate a random password
-function generatePassword() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-='
-    const passwordLength = 12; // adjust the length to your desired value
-    let password = '';
+
+document.getElementById('create-user-form').addEventListener('submit', async function(event) {
+  event.preventDefault();
   
-    for (let i = 0; i < passwordLength; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-  
-    return password;
+  const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+      role:document.getElementById('role').value,
+      address: {
+          street: document.getElementById('street').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          zipcode: document.getElementById('zipcode').value,
+      }
+  };
+
+  try {
+      const response = await fetch('/api/admin/create-user', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+          alert('Registration successful');
+      } else {
+          alert('Error: ' + result.msg);
+      }
+  } catch (error) {
+      alert(error);
+      //console.log(error);
   }
-  
-  // Get the form and input elements
-  const form = document.getElementById('create-user-form');
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
-  const roleInput = document.getElementById('role');
-  const generatedPasswordInput = document.getElementById('generated-password');
-  const passwordContainer = document.getElementById('password-container');
-  const errorMessage = document.getElementById('error-message');
-  
-  // Add event listener to the form
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-  
-    const name = nameInput.value;
-    const email = emailInput.value;
-    const role = roleInput.value;
-  
-    if (!name || !email || !role) {
-      errorMessage.textContent = 'Please fill in all fields';
-      return;
-    }
-  
-    // Generate a password
-    const password = generatePassword();
-    generatedPasswordInput.value = password;
-  
-    // Show the generated password
-    passwordContainer.style.display = 'block';
-  
-    // TO DO: Call API or send request to create user
-    console.log('Create user:', { name, email, role, password });
-  
-    // Clear form fields manually
-    // nameInput.value = '';
-    // emailInput.value = '';
-    // roleInput.value = '';
-  
-    // errorMessage.textContent = '';
-    alert("Succfull");
-  });
+});

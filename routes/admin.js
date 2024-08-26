@@ -14,8 +14,8 @@ router.get("/create-user", [auth, adminAuth], (req, res) => {
 });
 // Admin: Create user (employee, manager, ngo, municipal)
 router.post("/create-user", [auth, adminAuth], async (req, res) => {
-  const { name, email, password, role } = req.body;
-  //res.send(req.body);
+  const { name, email, password, role,address } = req.body;
+  console.log(req.body);
   try {
     let user = await User.findOne({ email });
     if (user) {
@@ -27,6 +27,7 @@ router.post("/create-user", [auth, adminAuth], async (req, res) => {
       email,
       password: await bcrypt.hash(password, 10),
       role,
+      address:address
     });
 
     await user.save();

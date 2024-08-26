@@ -16,8 +16,8 @@ router.get("/register", (req, res) => {
 
 // Public: Register account
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-
+  const { name, email, password ,address} = req.body;
+ 
   try {
     let user = await User.findOne({ email });
     if (user) {
@@ -29,6 +29,7 @@ router.post("/register", async (req, res) => {
       email,
       password: await bcrypt.hash(password, 10),
       role: "public",
+      address:address,
     });
 
     await user.save();
@@ -104,12 +105,16 @@ router.post("/forgot-password",async(req,res)=>{
     };
 
     sendMail(mailOptions)
-    .then((result) => console.log("Email send..."))
-    .catch((error) => console.log(error));
+    .then(() => {
+      console.log("Email send..");
+      res.json({ msg: 'OTP sent to your email' });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({msg:'error sending email otp'});  
+    });
 
-  res
-    .render("auth/enter-otp.ejs");
-
+  
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: 'Server error' });

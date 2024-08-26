@@ -1,22 +1,35 @@
-const form = document.getElementById('signup-form');
-const errorMessage = document.getElementById('error-message');
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const firstName = document.getElementById('first-name').value;
+document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
     
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        address: {
+            street: document.getElementById('street').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            zipcode: document.getElementById('zipcode').value,
+        }
+    };
 
-    if (!firstName || !email || !password) {
-        errorMessage.textContent = 'Please fill in all fields.';
-        return;
+    try {
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Registration successful');
+        } else {
+            alert('Error: ' + result.msg);
+        }
+    } catch (error) {
+        alert('Error registering user');
     }
-
-    // TO DO: Add validation for email and password
-
-    // TO DO: Send request to server to create new user
-
-    alert('Signup successful!');
 });
