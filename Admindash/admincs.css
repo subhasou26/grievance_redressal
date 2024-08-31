@@ -241,9 +241,13 @@ button[type="submit"]:hover {
 .active-complaints {
     background-color: #ff6f61;
 }
+.filed-complaints {
+    background-color: #0f41bd;
+}
 .resolved-complaints {
     background-color: #4CAF50;
 }
+
 .table-container {
     margin: 20px;
     padding: 20px;
