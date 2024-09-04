@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="usedash.css">
+    <script src="userdash.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://www.biyanitechnologies.com/img/gecr16a.jpg" alt="Government Logo">
+            <h1>Public Grievances Portal
+            </h1>
+        </div>
+        <div class="user-info">
+            <p id="welcome-message"></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#">Appeal Dashboard</a></li>
+                <li><a href="#">Lodge Public Grievance</a></li>
+                <li><a href="#">Lodge Appeal</a></li>
+                <li><a href="#">Account Activity</a></li>
+                <li><a href="#">Edit Profile</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="#" id="sign-out">Sign out</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-cards">
+                <div class="card total-registered">
+                    <h2 id="total-registered">0</h2>
+                    <p>Total Grievances Registered</p>
+                </div>
+                <div class="card pending">
+                    <h2 id="pending-grievances">0</h2>
+                    <p>Number of Grievances Pending</p>
+                </div>
+                <div class="card closed">
+                    <h2 id="closed-grievances">0</h2>
+                    <p>Number of Grievances Closed</p>
+                </div>
+            </div>
+
+            <div class="grievances-table">
+                <h3>List of Grievances</h3>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search by Complaint Number">
+                    <button onclick="searchGrievance()">Search</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sn.</th>
+                            <th>Complaint Number</th>
+                            <th>Received Date</th>
+                            <th>Grievance description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="grievances-list">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
