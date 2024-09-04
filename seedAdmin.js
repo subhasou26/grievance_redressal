@@ -28,7 +28,7 @@ let address={
   zipcode:"721134"
 }
     // Create new admin user
-    const hashedPassword = await bcrypt.hash('Subha@1234', 10); // Change 'admin_password' to your desired password
+    const hashedPassword = await bcrypt.hash('1234', 10); // Change 'admin_password' to your desired password
     admin = new User({
       name: 'Subhadip Paul',
       email: 'subhadipp26@gmail.com',
