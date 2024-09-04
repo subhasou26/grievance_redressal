@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplainConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>ComplainConnect</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger-icon" id="hamburger-icon">
+        ☰
+    </div>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburger-menu">
+        <ul>
+            <li><a href="#profile-icon">Profile Icon</a></li>
+            <li><a href="#my-profile">My Profile</a></li>
+            <li><a href="#create-user">Create User</a></li>
+            <li><a href="#delete-user">Delete User</a></li>
+            <li>
+                <label>
+                    <input type="checkbox" id="hamburger-theme-switch">
+                    Dark Mode
+                </label>
+            </li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#complaints">Your Complaints</a></li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Body Section -->
+    <main>
+        <section id="complaints-sections">
+            <div id="complaints-filed" class="box blue-box">
+                <h2>Complaints Filed</h2>
+                <p>No complaints filed yet.</p>
+            </div>
+
+            <div id="complaints-pending" class="box red-box">
+                <h2>Complaints Pending</h2>
+                <p>No complaints pending.</p>
+            </div>
+
+            <div id="complaints-resolved" class="box green-box">
+                <h2>Complaints Resolved</h2>
+                <p>No complaints resolved yet.</p>
+            </div>
+        </section>
+        
+        <!-- Complaints Table Section -->
+        <section id="complaints-table">
+            <h2>Complaints Table</h2>
+            <input type="text" id="search-bar" placeholder="Search complaints...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>SL No</th>
+                        <th>Complaint Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="complaints-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td>00123</td>
+                        <td>Filed</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>00124</td>
+                        <td>Pending</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>00125</td>
+                        <td>Resolved</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>00126</td>
+                        <td>Filed</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>00127</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Chatbot Section -->
+    <div class="chatbot">
+        <div class="chat-header">
+            Chat with Us!
+            <span id="toggle-chatbot">_</span>
+        </div>
+        <div class="chat-body">
+            <div id="chat-output"></div>
+            <input type="text" id="chat-input" placeholder="Type your message here..." />
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Municipality. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
