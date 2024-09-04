@@ -25,6 +25,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
 
         const result = await response.json();
         if (response.ok) {
+            window.location.href='/api/auth/login'
             alert('Registration successful');
         } else {
             alert('Error: ' + result.msg);

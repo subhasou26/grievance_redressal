@@ -1,6 +1,7 @@
+const mongoose=require("mongoose");
 const ComplaintSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  authorities: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // References to municipal/authorities
+  authoriti_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // References to municipal/authorities
   complaintNumber: { type: String, required: true, unique: true },
   description: { type: String, required: true },
   status: {

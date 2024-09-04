@@ -15,7 +15,7 @@ router.get("/create-user", [auth, adminAuth], (req, res) => {
 // Admin: Create user (employee, manager, ngo, municipal)
 router.post("/create-user", [auth, adminAuth], async (req, res) => {
   const { name, email, password, role,address } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   try {
     let user = await User.findOne({ email });
     if (user) {

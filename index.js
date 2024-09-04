@@ -7,14 +7,14 @@ const ejsMate = require("ejs-mate");
 const cookieParser = require('cookie-parser');
 
 
-
+const status=require("express-status-monitor");
 
 dotenv.config();
 
 
 const app = express();
 
-
+app.use(status());
 connectDB();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -32,9 +32,13 @@ app.use((req, res, next) => {
     res.setHeader('Expires', '0');
     next();
 });
+// api end point
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
 app.use("/api/dashbord",require("./routes/dash"));
+app.use("/api/complaint",require("./routes/complaint"));
+app.use("/api/authorities",require("./routes/authorities"));
+
 
 
 app.get('/', (req, res) => res.send('API Running'));
@@ -43,5 +47,5 @@ app.get('/', (req, res) => res.send('API Running'));
 
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

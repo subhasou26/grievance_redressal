@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <style>
+        /* Add some basic styling */
+    </style>
+</head>
+<body>
+    <h2>Submit a Complaint</h2>
+    <h1 id="zipcode" data-zipcode="<%= user.address.zipcode %>"><%= user.address.zipcode %></h1>
+    
+    <form id="complaintForm" >
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br>
+
+        <label for="authorities">Select Authorities:</label>
+        <select id="authorities" name="authorities[]" multiple required></select><br>
+
+        <label for="attachments">Attachments:</label>
+        <input type="file" id="attachments" name="attachments" multiple><br>
+
+        <button type="submit">Submit Complaint</button>
+    </form>
+ 
+  
+    <script src="/js/complaint.js"></script>
+</body>
+</html>

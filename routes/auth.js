@@ -2,7 +2,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const myUser = require("../models/user");
 const { auth, adminAuth } = require("../middleware/auth");
 const sendMail=require("../utils/mail");
 const crypto=require("crypto");
@@ -19,12 +19,12 @@ router.post("/register", async (req, res) => {
   const { name, email, password ,address} = req.body;
  
   try {
-    let user = await User.findOne({ email });
+    let user = await myUser.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
 
-    user = new User({
+    user = new myUser({
       name,
       email,
       password: await bcrypt.hash(password, 10),
@@ -47,14 +47,14 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: "Invalid credentials" });
+    const login_user = await myUser.findOne({ email });
+    if (!login_user) return res.status(400).json({ msg: "Invalid credentials" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, login_user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: login_user._id, role: login_user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -63,7 +63,7 @@ router.post("/login", async (req, res) => {
       maxAge: 1 * 60 * 60 * 1000, // 5 hour
       sameSite: "Strict",
     });
-    res.redirect(`/api/dashbord/${user.role}`);
+    res.redirect(`/api/dashbord/${login_user.role}`);
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
@@ -81,7 +81,7 @@ router.get("/forgot-password",(req,res)=>{
 router.post("/forgot-password",async(req,res)=>{
   const {email}=req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await myUser.findOne({ email });
     if (!user) {
       return res.status(404).json({ msg: 'No user found with that email address' });
     }
@@ -125,7 +125,7 @@ router.post("/reset-password",async (req,res)=>{
   const { email, otp, newPassword } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await myUser.findOne({ email });
 
     if (!user || !user.resetPasswordToken || !user.resetPasswordExpires) {
       return res.status(400).json({ msg: 'Invalid request or expired OTP' });

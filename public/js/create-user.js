@@ -26,6 +26,7 @@ document.getElementById('create-user-form').addEventListener('submit', async fun
 
       const result = await response.json();
       if (response.ok) {
+        window.location.href='/api/dashbord/admin';
           alert('Registration successful');
       } else {
           alert('Error: ' + result.msg);
