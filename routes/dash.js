@@ -11,7 +11,7 @@ router.get("/public",auth,async(req,res)=>{
    const user_id= req.user.id;
    const user=await User.findById(user_id);
    
-    res.render('user/user-dash.ejs',{user});
+    res.render('user/user-dash-2.ejs',{user});
 })
 
 

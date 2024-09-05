@@ -47,4 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayGrievances(filteredGrievances);
         updateStatistics(filteredGrievances); 
     };
+    document.getElementById("lunch_complaint").addEventListener('click',function (event){
+        window.location.href='/api/complaint';
+    })
 });
