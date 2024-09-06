@@ -66,11 +66,11 @@
     <div class="container">
         <div class="box active-complaints">
             <h2>Total Active Complaints</h2>
-            <p>25</p> <!-- Replace with dynamic content -->
+            <p><%=complaints.length%></p> <!-- Replace with dynamic content -->
         </div>
         <div class="box resolved-complaints">
             <h2>Resolved & In-Progress Complaints</h2>
-            <p>50</p> <!-- Replace with dynamic content -->
+            <p>0</p> <!-- Replace with dynamic content -->
         </div>
     </div>
 
@@ -84,23 +84,20 @@
         <table>
             <thead>
                 <tr>
-                    <th>Sr No</th>
+                  
                     <th>Complaint No</th>
+                    <th>Description</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>12345</td>
-                    <td>Active</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>67890</td>
-                    <td>Resolved</td>
-                </tr>
-                <!-- Add more rows as needed -->
+              <% for( let complaint of complaints ) { %>
+              <tr>
+                <td><%=complaint.complaintNumber%></td>
+                <td><%=complaint.description%></td>
+                <td><%=complaint.status%></td>
+              </tr>
+              <% } %>
             </tbody>
         </table>
     </div>

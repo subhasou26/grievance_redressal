@@ -59,7 +59,7 @@
 
             <div id="complaints-pending" class="box red-box">
                 <h2>Complaints Pending</h2>
-                <p>No complaints pending.</p>
+                <p><%=complaints.length%></p>
             </div>
 
             <div id="complaints-resolved" class="box green-box">
@@ -75,37 +75,20 @@
             <table>
                 <thead>
                     <tr>
-                        <th>SL No</th>
                         <th>Complaint Number</th>
+                       <th>Description</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="complaints-table-body">
-                    <tr>
-                        <td>1</td>
-                        <td>00123</td>
-                        <td>Filed</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>00124</td>
-                        <td>Pending</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>00125</td>
-                        <td>Resolved</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>00126</td>
-                        <td>Filed</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>00127</td>
-                        <td>Pending</td>
-                    </tr>
+                    <% for( let complaint of complaints ) { %>
+                        <tr>
+                            <td><%=complaint.complaintNumber%></td>
+                            <td><%=complaint.description%></td>
+                            <td><%=complaint.status%></td>
+                        </tr>
+                    
+                    <% } %>
                 </tbody>
             </table>
         </section>

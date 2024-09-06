@@ -10,7 +10,7 @@ router.get('/nearby',async(req,res)=>{
 
     try {
       const authorities = await User.find({
-        role: 'municipal',
+        role: { $in: ['municipal', 'ngo', 'employee','admin'] },
         'address.zipcode': zipcode,
       });
   

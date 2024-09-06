@@ -14,13 +14,16 @@ router.get("/",auth,async(req,res)=>{
 });
 router.post("/",auth,async(req,res)=>{
   const userId=req.user.id;
-        const {authoriti_id, description } = req.body;
+        const {authoriti_ids, description } = req.body;
         
         try {
             const user = await User.findById(userId);
-            const authorities=await User.findById(authoriti_id);
+            const authorities=await User.find({ _id: { $in: authoriti_ids } });
             if (!user) return res.status(404).json({ msg: 'User not found' });
-            if(!authorities) return res.status(404).json({msg:'Authorities not found'});
+            if(authorities.length!=authoriti_ids.length){
+               return res.status(404).json({msg:'One or more authorities not found'});
+            }
+            
         
             const complaintNumber = `C-${Date.now()}`; // Generate a unique complaint number
         
@@ -28,7 +31,7 @@ router.post("/",auth,async(req,res)=>{
             const attachments="file_path"
             const complaint = new Complaint({
               userId,
-              authoriti_id,
+              authoriti_ids,
               complaintNumber,
               description,
               attachments,
@@ -37,6 +40,7 @@ router.post("/",auth,async(req,res)=>{
             await complaint.save();
             res.status(201).json({ msg: 'Complaint submitted successfully', complaintNumber });
           } catch (error) {
+            console.log(error);
             res.status(500).json({ msg: 'Server error' });
           }
         
