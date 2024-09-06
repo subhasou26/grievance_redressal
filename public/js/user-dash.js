@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const grievances = [
-        { sn: 1, complaintNumber: 'CN123', receivedDate: '2024-08-01', description: 'Complaint about service', status: 'Pending' },
-        { sn: 2, complaintNumber: 'CN124', receivedDate: '2024-08-02', description: 'Complaint about pension', status: 'Closed' },
-        { sn: 3, complaintNumber: 'CN125', receivedDate: '2024-08-03', description: 'Complaint about staff', status: 'Pending' },
-        { sn: 4, complaintNumber: 'CN126', receivedDate: '2024-08-04', description: 'Complaint about policy', status: 'Closed' },
-    ];
+    const grievances = complaints;
+    console.log(grievances);
 
     const grievancesList = document.getElementById('grievances-list');
     const totalRegisteredElement = document.getElementById('total-registered');
@@ -15,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
         grievancesList.innerHTML = '';
         grievances.forEach(grievance => {
             const row = `<tr>
-                <td>${grievance.sn}</td>
+                
                 <td>${grievance.complaintNumber}</td>
-                <td>${grievance.receivedDate}</td>
                 <td>${grievance.description}</td>
                 <td>${grievance.status}</td>
+                
             </tr>`;
             grievancesList.insertAdjacentHTML('beforeend', row);
         });
@@ -49,5 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     document.getElementById("lunch_complaint").addEventListener('click',function (event){
         window.location.href='/api/complaint';
+    })
+    document.getElementById("sign-out").addEventListener('click',function(){
+        window.location.href='/api/auth/logout';
     })
 });

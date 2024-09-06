@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Dark Mode functionality
     const themeSwitch = document.getElementById('theme-switch');
     const hamburgerThemeSwitch = document.getElementById('hamburger-theme-switch');
-
+    document.getElementById('logout').addEventListener('click',function(){
+        window.location.href='/api/auth/logout';
+    })
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
     }
@@ -69,4 +71,5 @@ document.addEventListener('DOMContentLoaded', function() {
             chatBody.classList.toggle('hidden');
         });
     }
+    
 });

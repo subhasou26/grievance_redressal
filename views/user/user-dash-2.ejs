@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/css/user-dash.css">
     <script src="/js/user-dash.js" defer></script>
 </head>
+<script>
+    const complaints=<%-JSON.stringify(complaint)%>
+</script>
 <body>
+    
     <div class="header">
         <div class="logo">
             <img src="https://www.biyanitechnologies.com/img/gecr16a.jpg" alt="Government Logo">
@@ -57,10 +61,9 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Sn.</th>
+                           
                             <th>Complaint Number</th>
-                            <th>Received Date</th>
-                            <th>Grievance description</th>
+                            <th>Description</th>
                             <th>Status</th>
                         </tr>
                     </thead>

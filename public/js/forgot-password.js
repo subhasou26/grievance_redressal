@@ -4,6 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('otp-form').reset();
     document.getElementById('forgot-password-form').reset();
 };
+
+function showLoading() {
+  document.getElementById("loading-screen").style.display = "flex";
+}
+
+// Hide the loading screen
+function hideLoading() {
+  document.getElementById("loading-screen").style.display = "none";
+}
+
 document
   .getElementById("forgot-password-form")
   .addEventListener("submit", async function (event) {
@@ -11,7 +21,7 @@ document
     const formData = {
       email: document.getElementById("email").value,
     };
-
+    showLoading();
     try {
       const response = await fetch("/api/auth/forgot-password", {
         method: "POST",
@@ -31,7 +41,7 @@ document
     } catch (error) {
       alert("Error sending email");
     }
-
+    hideLoading();
     document.getElementById("otp-field").style.display = "block";
   });
 

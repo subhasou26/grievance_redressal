@@ -24,5 +24,21 @@ const adminAuth = (req, res, next) => {
   if (req.user.role !== 'admin') return res.status(403).json({ msg: 'Access denied' });
   next();
 };
+const municipal=(req,res,next)=>{
+  if(req.user.role=='municipal'){
+    next();
+  }
+  else{
+    return res.status(403).json({msg:'Access denied'});
+  }
+}
 
-module.exports = { auth, adminAuth };
+const public=(req,res,next)=>{
+  if(req.user.role=='public'){
+    next();
+  }
+  else{
+    return res.status(403).json({msg:'Access denied'});
+  }
+}
+module.exports = { auth, adminAuth,municipal,public };
