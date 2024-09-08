@@ -1,5 +1,5 @@
 const express = require('express');
-const { auth, adminAuth } = require("../middleware/auth");
+const { auth, adminAuth ,municipal} = require("../middleware/auth");
 const router = express.Router();
 const Complaint=require("../models/complaint");
 const User=require("../models/user");
@@ -46,5 +46,25 @@ router.post("/",auth,async(req,res)=>{
         
 });
 
+router.put("/:complaint_num",[auth,municipal],async(req,res)=>{
+  try {
+    const complaint_num = req.params.complaint_num;
+    const { status, response } = req.body;
+    
+    const updatedComplaint = await Complaint.findOneAndUpdate({complaintNumber:{$in:complaint_num}},
+      { status, response, updatedAt: Date.now() },
+            { new: true }
+    );
+    
+   
+    if (!updatedComplaint) {
+        return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    res.json(updatedComplaint);
+} catch (err) {
+    res.status(500).json({ message: err.message });
+}
+});
 
 module.exports=router;

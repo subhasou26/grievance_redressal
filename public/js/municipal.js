@@ -73,3 +73,68 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 });
+document.addEventListener("DOMContentLoaded", function() {
+    const complaintRows = document.querySelectorAll("#complaints-table-body tr");
+    const modal = document.getElementById("complaint-modal");
+    const modalClose = document.getElementById("modal-close");
+    const complaintNumberElem = document.getElementById("modal-complaint-number");
+    const descriptionElem = document.getElementById("modal-description");
+    const statusElem = document.getElementById("modal-status");
+    const submitSolutionBtn = document.getElementById("submit-solution");
+    let selectedComplaintId;
+
+    // Function to open the modal and populate it with complaint details
+    complaintRows.forEach(row => {
+        row.addEventListener("click", function() {
+            const complaintNumber = this.querySelector("td:nth-child(1)").innerText;
+            const description = this.querySelector("td:nth-child(2)").innerText;
+            const status = this.querySelector("td:nth-child(3)").innerText;
+            
+            // Set selected complaint id (this would come from your server in a real app)
+            selectedComplaintId = complaintNumber;
+            console.log(selectedComplaintId);
+            // Populate modal with complaint details
+            complaintNumberElem.innerText = complaintNumber;
+            descriptionElem.innerText = description;
+            statusElem.innerText = status;
+
+            // Show the modal
+            modal.style.display = "block";
+        });
+    });
+
+    // Close the modal
+    modalClose.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    // Submit solution to update complaint
+    submitSolutionBtn.addEventListener("click", function() {
+        const solution = document.getElementById("solution-text").value;
+        const status = "Resolved"; // Assuming when solution is provided, status is "Resolved"
+
+        // PUT request to update complaint
+        fetch(`/api/complaint/${selectedComplaintId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                status: status,
+                response: solution,
+                updatedAt: new Date()
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Complaint updated successfully!");
+            modal.style.display = "none";
+
+            // Optionally, refresh the page or update the complaint table
+            location.reload();
+        })
+        .catch(error => {
+            console.error("Error updating complaint:", error);
+        });
+    });
+});
