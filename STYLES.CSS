@@ -1,0 +1,250 @@
+/* Basic resets */
+body, h1, h2, p, ul, li, table, input {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-collapse: collapse;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+body.dark-mode {
+    background-color: #333;
+    color: white;
+}
+
+/* Header styling */
+header {
+    background-color: #000; /* Black background */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Hamburger Menu Styling */
+.hamburger-menu {
+    font-size: 30px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+/* Sidebar Menu */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    text-align: left;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+
+.sidebar .dark-mode-toggle {
+    color: white;
+    padding: 10px;
+}
+
+#dark-mode {
+    margin-left: 10px;
+}
+
+/* Main content styling */
+main {
+    padding: 20px;
+}
+
+/* Complaints Sections */
+#complaints-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.blue-box {
+    background-color: #2196F3;
+    color: white;
+}
+
+.red-box {
+    background-color: #f44336;
+    color: white;
+}
+
+.green-box {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Complaints Table Styling */
+#complaints-table {
+    margin-top: 20px;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+table {
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+thead {
+    background-color: #333;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #444;
+}
+
+tbody td {
+    padding: 10px;
+    border: 1px solid #333;
+}
+
+/* Chatbot Styling */
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-body.hidden {
+    display: none;
+}
+
+#chat-output {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.user, .bot {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.user {
+    background-color: #e0e0e0;
+    text-align: right;
+}
+
+.bot {
+    background-color: #f1f1f1;
+}
+
+.quick-reply {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.quick-reply:hover {
+    background-color: #45a049;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#send-btn, #voice-input {
+    padding: 8px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

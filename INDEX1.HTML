@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplainConnect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>ComplainConnect</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hamburger Menu Icon -->
+    <div class="hamburger-menu" id="hamburger-menu">
+        &#9776;
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#profile"><img src="profile-icon.png" alt="Profile Icon"> My Profile</a></li>
+            <li><a href="#create-user">Create User</a></li>
+            <li><a href="#delete-user">Delete User</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li>
+                <div class="dark-mode-toggle">
+                    <label for="dark-mode">Dark Mode</label>
+                    <input type="checkbox" id="dark-mode">
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Body Section -->
+    <main>
+        <section id="complaints-sections">
+            <div class="box blue-box">
+                <h2>Complaints Filed</h2>
+                <p>No complaints filed yet.</p>
+            </div>
+
+            <div class="box red-box">
+                <h2>Complaints Pending</h2>
+                <p>No complaints pending.</p>
+            </div>
+
+            <div class="box green-box">
+                <h2>Complaints Resolved</h2>
+                <p>No complaints resolved yet.</p>
+            </div>
+        </section>
+
+        <!-- Complaints Table Section -->
+        <section id="complaints-table">
+            <input type="text" id="search-bar" placeholder="Search for a complaint...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Complaint Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>101</td>
+                        <td>Resolved</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>102</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Chatbot Section -->
+    <div class="chatbot">
+        <div class="chat-header" id="chat-toggle">Chatbot (Click to Open/Close)</div>
+        <div class="chat-body hidden">
+            <div id="chat-output"></div>
+            <div class="smart-suggestions" id="smart-suggestions">
+                <button class="quick-reply">File a Complaint</button>
+                <button class="quick-reply">View Complaint Status</button>
+                <button class="quick-reply">Get Help</button>
+            </div>
+            <div class="input-area">
+                <button id="voice-input">🎤</button>
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
