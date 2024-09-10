@@ -5,7 +5,7 @@ document.getElementById('create-user-form').addEventListener('submit', async fun
   const formData = {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
-      password: document.getElementById('password').value,
+     
       role:document.getElementById('role').value,
       address: {
           street: document.getElementById('street').value,

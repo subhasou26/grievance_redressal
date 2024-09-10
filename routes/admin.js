@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const { auth, adminAuth } = require("../middleware/auth");
 const sendMail=require("../utils/mail");
+const crypto=require("crypto");
 require("dotenv").config();
 
 const router = express.Router();
@@ -14,14 +15,14 @@ router.get("/create-user", [auth, adminAuth], (req, res) => {
 });
 // Admin: Create user (employee, manager, ngo, municipal)
 router.post("/create-user", [auth, adminAuth], async (req, res) => {
-  const { name, email, password, role,address } = req.body;
+  const { name, email,role,address } = req.body;
   //console.log(req.body);
   try {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
-
+    const password = crypto.randomInt(100, 999).toString();
     user = new User({
       name,
       email,
