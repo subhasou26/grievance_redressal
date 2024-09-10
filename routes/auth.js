@@ -11,11 +11,11 @@ require("dotenv").config();
 const router = express.Router();
 
 router.get("/register", (req, res) => {
-  res.render("auth/signup.ejs");
+  res.render("auth/signup.ejs"); // data is going from server to browser
 });
 
 // Public: Register account
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => { // oposite browser -> server
   const { name, email, password ,address} = req.body;
  
   try {
