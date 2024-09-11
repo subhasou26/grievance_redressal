@@ -22,7 +22,7 @@ router.get("/public",[auth,public],async(req,res)=>{
 router.get("/municipal",[auth,municipal],async(req,res)=>{
     const user_id= req.user.id;
     const complaints=await Complaint.find({authoriti_ids:{$in:user_id}});
-    console.log(complaints);
+   
     const municipal_user=await User.findById(user_id);
     res.render('municipal/municipal-dash.ejs',{complaints,municipal_user});
 });
