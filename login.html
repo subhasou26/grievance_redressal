@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard Login</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>NGO Dashboard Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                </div>
+                <div class="recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="6LfovVIqAAAAADdE9-HyM1VUPU6y7OeE1KX7ZiTE"></div>
+                </div>
+                
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
