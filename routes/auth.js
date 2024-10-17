@@ -6,6 +6,8 @@ const myUser = require("../models/user");
 const { auth, adminAuth } = require("../middleware/auth");
 const sendMail=require("../utils/mail");
 const crypto=require("crypto");
+const sendOtp=require("../utils/sms");
+const { error } = require("console");
 require("dotenv").config();
 
 const router = express.Router();
@@ -155,5 +157,20 @@ router.post("/reset-password",async (req,res)=>{
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
+router.get("/sms",async(req,res)=>{
+  try {
+    sendOtp(1234,"+91 9733254600")
+    .then((result)=>{
+      console.log("otp send");
+      res.send(result)
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 module.exports = router;
