@@ -28,8 +28,18 @@
             <form action="/api/auth/forgot-password" method="GET">
               <button type="submit"> Forgot Password</button>
             </form>
-            <a href="http://localhost:5000/api/auth/register">Signup</a> | <a href="#">Forgot Username</a>
+            <a href="#" id="signup">Signup</a> | <a href="#">Forgot Username</a>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document
+        .getElementById("signup")
+        .addEventListener("click", function () {
+          
+          window.location.href = "register";
+        });
+    });
+  </script>
 </html>
