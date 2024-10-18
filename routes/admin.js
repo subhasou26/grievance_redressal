@@ -38,7 +38,7 @@ router.post("/create-user", [auth, adminAuth], async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Your Account Credentials",
-      text: `Hi ${name},\n\nYour account has been created with the following credentials:\n\nUsername: ${email}\nPassword: ${password}\n\nPlease log in and change your password after first use.\n\nRegards,\nAdmin Team`,
+      text: `Hi ${name},\n\nYour account has been created with the following credentials:\n\nUsername: ${email}\nPassword: ${password}\n\nPlease log in and change your password after first use.\n\nRegards,\nAdmin Team\n\nLogin to: https://grievance-redressal.vercel.app/api/auth/login `,
     };
     sendMail(mailOptions)
       .then((result) => console.log("Email send..."))
