@@ -22,10 +22,6 @@ router.get("/forgot-password", authController.forgotPasswordForm);
 
 router.post("/forgot-password", wrapAsync(authController.forgotPassword));
 
-
-
 router.post("/reset-password", wrapAsync(authController.resetPassword));
-
-
 
 module.exports = router;
