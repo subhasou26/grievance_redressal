@@ -121,7 +121,7 @@ module.exports.forgotPassword=async(req,res)=>{
 
 module.exports.resetPassword=async(req,res)=>{
     const { email, otp, newPassword } = req.body;
-
+    // creting new 
   try {
     const user = await myUser.findOne({ email });
 
