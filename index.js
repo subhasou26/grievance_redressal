@@ -43,7 +43,9 @@ app.use("/api/authorities",require("./routes/authorities"));
 
 app.get('/', (req, res) => res.send('API Running'));
 
-
+app.get("/health",(req,res)=>{
+    res.status(200).json({ message: "Everything is good here 👀" });
+})
 
 
 
