@@ -27,8 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const authorities = Array.from(document.getElementById('authorities').selectedOptions).map(option => option.value);
         // Create an object with only the necessary data
        
-          
-      
+    
       
         const formData = {
             description: description,

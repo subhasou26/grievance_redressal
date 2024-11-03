@@ -9,6 +9,17 @@ const ComplaintSchema = new mongoose.Schema({
     enum: ["Pending", "In Progress", "Resolved"],
     default: "Pending",
   },
+  geometry:{
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  },
   attachments: [String], // Paths to uploaded files
   response: String, // Response text from authorities
   createdAt: { type: Date, default: Date.now },
