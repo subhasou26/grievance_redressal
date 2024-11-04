@@ -1,6 +1,23 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const pincodeElement = document.getElementById("pincode");
-  
+
+
+  document.getElementById("get-location").addEventListener("click",async()=>{
+    navigator.geolocation.getCurrentPosition(gotLocation,failed)
+})
+  const lat=0;
+  const long=0;
+function gotLocation(position){
+    lat=position.coords.latitude
+    long=position.coords.longitude
+    console.log(position.coords.latitude)
+    console.log(position.coords.longitude)
+    
+  }
+
+  function failed(){
+    console.log("failed");
+  }
   pincodeElement.addEventListener("input", async function () {
       const pincode = pincodeElement.value;
      
@@ -19,19 +36,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   document.getElementById("complaintForm").addEventListener("submit", async function (event) {
-      event.preventDefault();
-      
+      event.preventDefault()
+
+  
       // Manually collect the description and selected authorities
         const complaint_tag=document.getElementById("tag").value;
         const description = complaint_tag+":"+document.getElementById('complaintDetails').value;
         const authorities = Array.from(document.getElementById('authorities').selectedOptions).map(option => option.value);
         // Create an object with only the necessary data
        
-    
-      
         const formData = {
             description: description,
-            authoriti_ids: authorities
+            authoriti_ids: authorities,
+            cordinated:{lat,long}
         };
         
       try {

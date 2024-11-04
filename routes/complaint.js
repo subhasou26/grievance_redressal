@@ -14,6 +14,7 @@ router.get("/",auth,async(req,res)=>{
 });
 router.post("/",auth,async(req,res)=>{
   const userId=req.user.id;
+  console.log(req.body);
         const {authoriti_ids, description } = req.body;
         
         try {
