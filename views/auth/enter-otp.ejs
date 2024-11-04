@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter your otp</title>
+</head>
+<body>
+    <form action="/api/auth/reset-password" method="POST">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email">
+        <label for="otp">OTP</label>
+        <input type="password" id="otp" name="otp">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" name="newPassword">
+        <button type="submit">Reset Password</button>
+    </form>
+</body>
+</html>

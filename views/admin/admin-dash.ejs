@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/admin-dash.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="menu-btn" id="menu-btn">&#9776;</button>
+            <h1><b>ComplaintConnect</b></h1>
+        </div>
+        <div class="header-right">
+            <span>Welcome, Admin</span>
+            <a href="#" id="about-us-link">About Us</a>
+            <a href="#" id="change-password-link">Change Password</a>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav class="nav-bar" id="nav-bar">
+        <ul>
+            <li class="profile-btn">
+                <a href="profile.html">
+                <button class="profile-button">
+                    <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1725891408~exp=1725892008~hmac=41af0cd6cd9c805c62b9a02697cfd0aec3e94f2755b4e77d503d16d39c68625b" alt="Profile Icon" width="30" height="30" style="border-radius: 50%;">
+                </button>
+                <span><%=admin_User.name%></span>
+            </li>
+
+            <li><a href="#" id="create-user-link">Create User</a></li>
+            <li><a href="#">Delete User</a></li>
+            <li>
+                <label for="theme-switch">Dark Mode</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider"></span>
+                </label>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Create User Form -->
+    <form id="create-user-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="role">Role</label>
+        <select id="role" name="role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select>
+
+        <div id="error-message"></div>
+
+        <button type="submit">Create User</button>
+    </form>
+
+    <!-- Container for rectangles -->
+    <div class="container">
+        <div class="box active-complaints">
+            <h2>Total Active Complaints</h2>
+            <p><%=complaints.length%></p> <!-- Replace with dynamic content -->
+        </div>
+        <div class="box resolved-complaints">
+            <h2>Resolved & In-Progress Complaints</h2>
+            <p>0</p> <!-- Replace with dynamic content -->
+        </div>
+    </div>
+
+    
+
+    <!-- Table with Search -->
+    <div class="table-container">
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Search by Complaint No...">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                  
+                    <th>Complaint No</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+              <% for( let complaint of complaints ) { %>
+              <tr>
+                <td><%=complaint.complaintNumber%></td>
+                <td><%=complaint.description%></td>
+                <td><%=complaint.status%></td>
+              </tr>
+              <% } %>
+            </tbody>
+        </table>
+    </div>
+
+   <script src="/js/admin-dash.js"></script>
+</body>
+</html>

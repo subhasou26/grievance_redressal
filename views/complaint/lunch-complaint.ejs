@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Form</title>
+    <link rel="stylesheet" href="/css/lunch-complaint.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Complaint Form</h2>
+        <form action="#" method="post" id="complaintForm">
+            <label for="complaintDetails">Complaint Details</label>
+            <textarea id="complaintDetails" name="complaintDetails" rows="4" required></textarea>
+
+            <label for="tag">Tag</label>
+            <select id="tag" name="tag" required>
+                <option value="">Select a Tag</option>
+                <option value="water">Water Issue</option>
+                <option value="abuse">Abuse</option>
+                <option value="stray">Stray Animals</option>
+                <option value="roads">Roads</option>
+                <option value="drainage">Drainage</option>
+                <option value="garbage">Garbage</option>
+                <option value="other">Others</option>
+            </select>
+
+            <label for="proof">Upload Proof (up to 3 images)</label>
+            <input type="file" id="proof" name="proof" accept="image/*" multiple required>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" required>
+
+            <label for="authorities">Select Authorities:</label>
+            <select id="authorities" name="authorities[]" multiple required></select><br>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+<script src="/js/complaint.js"></script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create User</title>
+    <link rel="stylesheet" type="text/css" href="/css/create-user.css" />
+  </head>
+  <body>
+    <form id="create-user-form">
+      <h2>Create User</h2>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="role">Role:</label>
+      <select id="role" name="role" required>
+        <option value="">Select a role</option>
+        <option value="employee">employee</option>
+        <option value="manager">manager</option>
+        <option value="municipal">municipal</option>
+        <option value="ngo">ngo</option>
+        <option value="admin">admin</option>
+      </select>
+      <label for="street">Street Address:</label>
+      <input type="text" id="street" name="street" required />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required />
+
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required />
+
+      <label for="zipcode">Zipcode:</label>
+      <input type="text" id="zipcode" name="zipcode" required />
+      
+
+      <button type="submit">Create User</button>
+    </form>
+
+    <script src="/js/create-user.js"></script>
+  </body>
+</html>
