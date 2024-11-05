@@ -14,8 +14,8 @@ router.get("/",auth,async(req,res)=>{
 });
 router.post("/",auth,async(req,res)=>{
   const userId=req.user.id;
-  console.log(req.body);
-        const {authoriti_ids, description } = req.body;
+
+        const {authoriti_ids, description,geometry } = req.body;
         
         try {
             const user = await User.findById(userId);
@@ -36,6 +36,7 @@ router.post("/",auth,async(req,res)=>{
               complaintNumber,
               description,
               attachments,
+              geometry,
             });
         
             await complaint.save();
