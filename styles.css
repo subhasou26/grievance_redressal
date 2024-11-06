@@ -1,278 +1,310 @@
-/* Basic resets */
-body, h1, h2, p, ul, li, table {
+/* Reset margin and padding */
+* {
     margin: 0;
     padding: 0;
-    list-style: none;
-    border-collapse: collapse;
+    box-sizing: border-box;
 }
 
-/* Body styling */
 body {
+    background-color: #f3f4f6;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-}
-
-/* Header styling */
-header {
-    background-color: #000; /* Black background */
-    color: white;
-    padding: 10px 20px;
+/* Header */
+.header {
+    background-color: #4CAF50;
+    padding: 20px;
     text-align: center;
-    position: relative;
 }
 
-header nav ul {
+.logo {
+    height: 60px;
+}
+
+.site-title {
+    font-size: 2em;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.tagline {
+    font-size: 1.5em;
+    color: #ffcc00;
+    margin-top: 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    position: relative;
+    animation: slideInOut 6s ease-in-out infinite;
+}
+
+@keyframes slideInOut {
+    0%, 100% { transform: translateX(-100%); opacity: 0; }
+    20%, 80% { transform: translateX(0); opacity: 1; }
+}
+
+/* Navigation Bar */
+.navbar {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    background-color: #000;
+    padding: 15px;
 }
 
-header nav ul li a {
-    color: white;
+.navbar a {
+    color: #fff;
+    margin: 0 15px;
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
 }
 
-/* Hamburger Icon styling */
-.hamburger-icon {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-    z-index: 1001;
+.navbar a:hover {
+    color: #4CAF50;
 }
 
-/* Hamburger Menu styling */
-.hamburger-menu {
-    position: fixed;
+/* Main Content and Background Section */
+.content {
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    min-height: 60vh;
+}
+
+.background-section {
+    background-image: url('path/to/your/background-image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 250px;
-    background-color: #333;
-    color: white;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    padding-top: 60px;
-    z-index: 1000;
+    opacity: 0.8;
+    z-index: -1;
 }
 
-.hamburger-menu.show {
-    transform: translateX(0);
-}
-
-.hamburger-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.hamburger-menu ul li {
-    margin-bottom: 10px;
-}
-
-.hamburger-menu ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-}
-
-.hamburger-menu ul li label {
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.hamburger-menu ul li input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-/* Navigation bar styling */
-.main-nav {
-    background-color: #333;
-    padding: 10px 0;
-}
-
-.main-nav ul {
+/* Floating Icons */
+.floating-icons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    padding: 20px 0;
 }
 
-.main-nav ul li a {
+.icon-box {
     color: white;
-    text-decoration: none;
+    padding: 15px;
+    margin: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.2em;
+    cursor: pointer;
+    animation: floatAndMove 3s ease-in-out infinite;
 }
 
-/* Main content styling */
-main {
-    padding: 20px;
+#fileComplaint {
+    background-color: rgba(76, 175, 80, 0.9);
 }
 
-/* Complaints Sections */
-#complaints-sections {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+#checkStatus {
+    background-color: rgba(255, 193, 7, 0.9);
 }
 
-.box {
-    flex: 1;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
+@keyframes floatAndMove {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(10px) translateY(5px); }
+    100% { transform: translateX(0) translateY(0); }
 }
 
-.blue-box {
-    background-color: #2196F3;
-    color: white;
-}
-
-.red-box {
-    background-color: #f44336;
-    color: white;
-}
-
-.green-box {
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* Dark Mode Adjustments */
-body.dark-mode main section {
-    background-color: #444;
-    color: #e0e0e0;
-}
-
-body.dark-mode .blue-box {
-    background-color: #1565c0;
-}
-
-body.dark-mode .red-box {
-    background-color: #c62828;
-}
-
-body.dark-mode .green-box {
-    background-color: #2e7d32;
-}
-
-/* Complaints Table Styling */
-#complaints-table {
-    margin-top: 20px;
-}
-
-#search-bar {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-table {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-}
-
-thead {
-    background-color: #333;
-    color: white;
-}
-
-thead th {
-    padding: 10px;
-    text-align: left;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: #222;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #111;
-}
-
-tbody td {
-    padding: 10px;
-    border-top: 1px solid #333;
-}
-
-/* Footer styling */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
-}
-
-/* Chatbot Styling */
+/* Chatbot */
 .chatbot {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 300px;
-    max-height: 400px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    z-index: 1000;
 }
 
 .chat-header {
     background-color: #4CAF50;
     color: white;
     padding: 10px;
-    text-align: center;
     cursor: pointer;
+    text-align: center;
 }
 
 .chat-body {
-    flex: 1;
     padding: 10px;
-    overflow-y: auto;
 }
 
-.chat-body.hidden {
+.hidden {
     display: none;
 }
 
 #chat-output {
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .user, .bot {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
+    max-width: 75%;
+    padding: 8px 12px;  /* Adjust padding for smaller box */
+    margin: 5px 0;
+    border-radius: 8px;  /* Slightly smaller border radius */
+    font-size: 0.9em;  /* Smaller font size */
+    line-height: 1.4;  /* Adjust line height for readability */
 }
 
 .user {
-    background-color: #e0e0e0;
-    text-align: right;
+    align-self: flex-end;
+    background-color: #4CAF50;
+    color: white;
 }
 
 .bot {
+    align-self: flex-start;
     background-color: #f1f1f1;
+    color: #333;
+}
+
+/* Feedback and Input area */
+.feedback-option {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.input-area button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+/* Updated Chatbot Location Share Button */
+#location-file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between the icons */
+}
+
+
+#share-location {
+    background-color: #ff5722;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;  /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#share-location:hover {
+    background-color: #e64a19;
+}
+
+#file-upload-box {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Professional file attachment input */
+#file-upload-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#file-attachment-icon {
+    font-size: 1.5em;
+    color: #4CAF50;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#file-upload {
+    display: none;  /* Hide the file input */
+}
+
+#file-upload:focus {
+    outline: none;
+}
+
+/* File upload label when file is selected */
+#file-upload-label {
+    font-size: 1.1em;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Smart Replies */
+.smart-suggestions {
+    display: flex;
+    justify-content: space-between;  /* Space between the buttons */
+    margin-top: 20px;  /* Add space above the buttons */
+    gap: 15px;  /* Slightly larger gap between the buttons */
+    flex-wrap: wrap;  /* Ensure buttons wrap to the next line on smaller screens */
+    position: relative;  /* So that we can position them outside the chat */
+    z-index: 1;  /* Keep them above the chat area */
+}
+
+.quick-reply {
+    background-color: #4CAF50;  /* Professional green background */
+    color: white;
+    border: none;
+    border-radius: 8px;  /* Rounded corners for a slick appearance */
+    padding: 8px 12px;  /* Smaller padding for smaller icons */
+    font-size: 0.9em;  /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth hover effect */
+    width: auto;  /* Auto width for more compact buttons */
+    max-width: 180px;  /* Limit width for smaller buttons */
+    text-align: center;  /* Center text in the button */
+}
+
+.quick-reply:hover {
+    background-color: #388E3C;  /* Darker green on hover */
+    transform: translateY(-2px);  /* Slightly lift the button on hover */
+}
+
+/* Adjust layout for small screens */
+@media (max-width: 600px) {
+    .smart-suggestions {
+        flex-direction: column;  /* Stack buttons vertically on smaller screens */
+        align-items: center;  /* Center align the buttons */
+    }
+}
+
+/* Make sure chat area doesn't get covered by the suggestions */
+.chat-body {
+    padding-bottom: 120px;  /* Add bottom padding to prevent overlap with suggestions */
 }

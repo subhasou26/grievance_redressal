@@ -3,130 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ComplainConnect</title>
+    <title>Complaint Connect</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>ComplainConnect</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
-            </ul>
-        </nav>
+
+    <!-- Header with Logo, Title, and Tagline -->
+    <header class="header">
+        <img src="C:\Users\naba1\OneDrive\Desktop\cc2\pixlr-image-generator-8e0d4f40-dd5b-409d-abec-a4b1fe9a0494.png" alt="Complaint Connect Logo" class="logo">
+        <div class="title-box">
+            <h1 class="site-title">ComplaintConnect</h1>
+            <h3 class="tagline">Connecting Concerns, Resolving Issues</h3>
+        </div>
     </header>
 
-    <!-- Hamburger Icon -->
-    <div class="hamburger-icon" id="hamburger-icon">
-        ☰
-    </div>
-
-    <!-- Hamburger Menu -->
-    <div class="hamburger-menu" id="hamburger-menu">
-        <ul>
-            <li><a href="#profile-icon">Profile Icon</a></li>
-            <li><a href="#my-profile">My Profile</a></li>
-            <li><a href="#create-user">Create User</a></li>
-            <li><a href="#delete-user">Delete User</a></li>
-            <li>
-                <label>
-                    <input type="checkbox" id="hamburger-theme-switch">
-                    Dark Mode
-                </label>
-            </li>
-            <li><a href="#settings">Settings</a></li>
-        </ul>
-    </div>
-
     <!-- Navigation Bar -->
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#profile">Profile</a></li>
-            <li><a href="#complaints">Your Complaints</a></li>
-            <li><a href="#settings">Settings</a></li>
-        </ul>
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#faqs">FAQs</a>
     </nav>
 
-    <!-- Body Section -->
-    <main>
-        <section id="complaints-sections">
-            <div id="complaints-filed" class="box blue-box">
-                <h2>Complaints Filed</h2>
-                <p>No complaints filed yet.</p>
-            </div>
-
-            <div id="complaints-pending" class="box red-box">
-                <h2>Complaints Pending</h2>
-                <p>No complaints pending.</p>
-            </div>
-
-            <div id="complaints-resolved" class="box green-box">
-                <h2>Complaints Resolved</h2>
-                <p>No complaints resolved yet.</p>
-            </div>
-        </section>
-        
-        <!-- Complaints Table Section -->
-        <section id="complaints-table">
-            <h2>Complaints Table</h2>
-            <input type="text" id="search-bar" placeholder="Search complaints...">
-            <table>
-                <thead>
-                    <tr>
-                        <th>SL No</th>
-                        <th>Complaint Number</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="complaints-table-body">
-                    <tr>
-                        <td>1</td>
-                        <td>00123</td>
-                        <td>Filed</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>00124</td>
-                        <td>Pending</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>00125</td>
-                        <td>Resolved</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>00126</td>
-                        <td>Filed</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>00127</td>
-                        <td>Pending</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <!-- Main Content with Background Image Section -->
+    <main class="content">
+        <div class="background-section">
+            <!-- Place background image here with CSS -->
+        </div>
+        <div class="floating-icons">
+            <div class="icon-box" id="fileComplaint">📋 File a Complaint</div>
+            <div class="icon-box" id="checkStatus">🔍 Check Complaint Status</div>
+        </div>
     </main>
 
-    <!-- Chatbot Section -->
+    <!-- Chatbot -->
     <div class="chatbot">
-        <div class="chat-header">
-            Chat with Us!
-            <span id="toggle-chatbot">_</span>
-        </div>
-        <div class="chat-body">
+        <div class="chat-header" id="chat-toggle">Chatbot (Click to Open/Close)</div>
+        <div class="chat-body hidden">
             <div id="chat-output"></div>
-            <input type="text" id="chat-input" placeholder="Type your message here..." />
+            <div class="smart-suggestions" id="smart-suggestions">
+                <button class="quick-reply">File a Complaint</button>
+                <button class="quick-reply">View Complaint Status</button>
+                <button class="quick-reply">Get Help</button>
+            </div>
+            <div class="feedback-option">
+                <button class="quick-reply">Rate Us</button>
+            </div>
+            <div class="input-area">
+                <button id="voice-input">🎤</button>
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-btn">Send</button>
+            </div>
+            <div class="location-upload">
+            
+                <input type="file" id="file-upload" />
+                <div id="location-file-upload-container">
+                    <!-- Share Location Icon -->
+                    <button id="share-location">
+                        📍 Share Location
+                    </button>
+                
+                    <!-- File Upload Box -->
+                    <div id="file-upload-box">
+                        <label id="file-upload-label" for="file-upload">
+                            📎
+                        </label>
+                        <input type="file" id="file-upload" style="display: none;" />
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Municipality. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
