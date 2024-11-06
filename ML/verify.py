@@ -1,9 +1,10 @@
+import sys
 import tensorflow as tf
 import numpy as np
 from tensorflow.keras.preprocessing import image
 
 # Load the model from your saved location
-model = tf.keras.models.load_model('verification_model.h5')
+model = tf.keras.models.load_model('ML/verification_model.h5')
 
 # Define a function to load and preprocess the image
 def load_and_preprocess_image(img_path):
@@ -30,6 +31,9 @@ def predict_image_class(img_path, threshold=0.7):
         return 'Predicted class: Unknown (below confidence threshold)'
 
 # Test with a new image
-img_path = 'pothole.jpeg'
-result = predict_image_class(img_path)
-print(result)
+
+if __name__ == "__main__":
+    # Get the image path from the command line argument
+    img_path = sys.argv[1]  
+    result = predict_image_class(img_path)
+    print(result)  # Output the result so Node.js can capture it

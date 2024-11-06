@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const complaint_tag = document.getElementById("tag").value;
         const description = complaint_tag + ":" + document.getElementById("complaintDetails").value;
         const authorities = Array.from(document.getElementById("authorities").selectedOptions).map(option => option.value);
-  
+        const imageFiles = document.getElementById("proof").files;
         // Create an object with only the necessary data
         const formData = {
           description: description,
@@ -35,9 +35,13 @@ document.addEventListener("DOMContentLoaded", async function () {
           geometry: {
             type: "Point",
             coordinates: [long, lat]  // Longitude, Latitude
-          }
+          },
+          images: [] // Array to hold base64-encoded images
         };
-  
+        for (let i = 0; i < imageFiles.length; i++) {
+          const base64Image = await convertToBase64(imageFiles[i]);
+          formData.images.push(base64Image);
+      }
         try {
           const response = await fetch("/api/complaint", {
             method: "POST",
@@ -60,7 +64,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
     });
   });
-  
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
   async function fetchAuthorities(pincode) {
     const response = await fetch(`/api/authorities/nearby?zipcode=${pincode}`);
     const authorities = await response.json();
