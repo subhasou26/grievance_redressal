@@ -3,77 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complaint Connect</title>
+    <title>ComplainConnect</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Header with Logo, Title, and Tagline -->
-    <header class="header">
-        <img src="C:\Users\naba1\OneDrive\Desktop\cc2\pixlr-image-generator-8e0d4f40-dd5b-409d-abec-a4b1fe9a0494.png" alt="Complaint Connect Logo" class="logo">
-        <div class="title-box">
-            <h1 class="site-title">ComplaintConnect</h1>
-            <h3 class="tagline">Connecting Concerns, Resolving Issues</h3>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="C:\Users\naba1\OneDrive\Desktop\cc2\pixlr-image-generator-8e0d4f40-dd5b-409d-abec-a4b1fe9a0494.png" alt="ComplainConnect Logo" class="logo-image">
+            <div class="logo-text">Complain <span>Connect</span></div>
         </div>
+        <button class="home-button">HOME</button>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#about">About Us</a>
-        <a href="#faqs">FAQs</a>
-    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>CONNECTING CONCERNS, <br> RESOLVING ISSUES</h1>
+        <div class="hero-buttons">
+            <button class="file-complaint">FILE A COMPLAINT</button>
+            <button class="check-status">CHECK COMPLAINT STATUS</button>
+        </div>
+    </section>
 
-    <!-- Main Content with Background Image Section -->
-    <main class="content">
-        <div class="background-section">
-            <!-- Place background image here with CSS -->
-        </div>
-        <div class="floating-icons">
-            <div class="icon-box" id="fileComplaint">📋 File a Complaint</div>
-            <div class="icon-box" id="checkStatus">🔍 Check Complaint Status</div>
-        </div>
-    </main>
+    <!-- What We Do Section -->
+    <section class="what-we-do">
+        <h2>WHAT <span>WE DO</span></h2>
+        <p>At ComplainConnect, our mission is to streamline the process of filing, tracking, and resolving complaints efficiently. We provide a digital platform that connects individuals and organizations with the relevant departments, ensuring timely communication and action on critical issues.</p>
+        <button class="learn-more">LEARN MORE</button>
+    </section>
 
-    <!-- Chatbot -->
-    <div class="chatbot">
-        <div class="chat-header" id="chat-toggle">Chatbot (Click to Open/Close)</div>
-        <div class="chat-body hidden">
-            <div id="chat-output"></div>
-            <div class="smart-suggestions" id="smart-suggestions">
-                <button class="quick-reply">File a Complaint</button>
-                <button class="quick-reply">View Complaint Status</button>
-                <button class="quick-reply">Get Help</button>
-            </div>
-            <div class="feedback-option">
-                <button class="quick-reply">Rate Us</button>
-            </div>
-            <div class="input-area">
-                <button id="voice-input">🎤</button>
-                <input type="text" id="user-input" placeholder="Type your message...">
-                <button id="send-btn">Send</button>
-            </div>
-            <div class="location-upload">
-            
-                <input type="file" id="file-upload" />
-                <div id="location-file-upload-container">
-                    <!-- Share Location Icon -->
-                    <button id="share-location">
-                        📍 Share Location
-                    </button>
-                
-                    <!-- File Upload Box -->
-                    <div id="file-upload-box">
-                        <label id="file-upload-label" for="file-upload">
-                            📎
-                        </label>
-                        <input type="file" id="file-upload" style="display: none;" />
-                    </div>
-                </div>
-                
-            </div>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <img src="C:\Users\naba1\OneDrive\Pictures\Screenshots\Screenshot 2024-11-06 223818.png" alt="Seamless Complaint Filing" class="feature-image">
+            <h3>Seamless Complaint Filing</h3>
+            <p>Easily file complaints with our user-friendly form. Simply enter the details, attach any relevant files, and submit in a few clicks.</p>
         </div>
-    </div>
+        <div class="feature">
+            <img src="C:\Users\naba1\OneDrive\Pictures\Screenshots\Screenshot 2024-11-06 223825.png" alt="Realtime Tracking" class="feature-image">
+            <h3>Realtime Tracking</h3>
+            <p>Keep track of your complaint’s progress in real-time. Our platform provides regular updates on the status of your case.</p>
+        </div>
+        <div class="feature">
+            <img src="C:\Users\naba1\OneDrive\Pictures\Screenshots\Screenshot 2024-11-06 223835.png" alt="Automated Support via Chatbot" class="feature-image">
+            <h3>Automated Support via Smart Chatbot</h3>
+            <p>Our AI-powered chatbot is available 24/7 to assist with common questions, file complaints, and check statuses without waiting for human support.</p>
+        </div>
+        <div class="feature">
+            <img src="C:\Users\naba1\OneDrive\Pictures\Screenshots\Screenshot 2024-11-06 223845.png" alt="Direct Access to Support" class="feature-image">
+            <h3>Direct Access to Support</h3>
+            <p>For additional help, we connect you directly to our support team for guidance and follow-ups on unresolved issues.</p>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <h2>GET STARTED <span>TODAY</span></h2>
+        <button class="sign-up">SIGN UP NOW</button>
+    </section>
 
     <script src="script.js"></script>
 </body>
