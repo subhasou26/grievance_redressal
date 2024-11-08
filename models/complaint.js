@@ -21,6 +21,11 @@ const ComplaintSchema = new mongoose.Schema({
     }
   },
   attachments: [String], // Paths to uploaded files
+  predicted:[{
+    type:String,
+    required:false,
+  
+  }],
   response: String, // Response text from authorities
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
