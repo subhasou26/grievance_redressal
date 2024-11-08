@@ -1,7 +1,8 @@
 
 document.getElementById('create-user-form').addEventListener('submit', async function(event) {
   event.preventDefault();
-  
+  let lat=document.getElementById("lat").value;
+  let long=document.getElementById("long").value;
   const formData = {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
@@ -12,7 +13,11 @@ document.getElementById('create-user-form').addEventListener('submit', async fun
           city: document.getElementById('city').value,
           state: document.getElementById('state').value,
           zipcode: document.getElementById('zipcode').value,
-      }
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [long, lat]  // Longitude, Latitude
+      },
   };
 
   try {

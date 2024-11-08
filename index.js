@@ -5,8 +5,8 @@ const dotenv = require('dotenv');
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const cookieParser = require('cookie-parser');
-
-
+const{spawn}=require("child_process")
+const ExpressError=require("./utils/ExpressError")
 const status=require("express-status-monitor");
 
 dotenv.config();
@@ -33,6 +33,10 @@ app.use((req, res, next) => {
     next();
 });
 // api end point
+app.get("/",async(req,res)=>{
+    res.render("landingpage/home.ejs");
+})
+
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
 app.use("/api/dashbord",require("./routes/dash"));
@@ -41,11 +45,16 @@ app.use("/api/authorities",require("./routes/authorities"));
 
 
 
-app.get('/', (req, res) => res.send('API Running'));
+app.get("/health",(req,res)=>{
+    res.status(200).json({ message: "Everything is good here 👀" });
+})
 
-
-
-
-
+app.all("*",(req,res,next)=>{
+    next(new ExpressError(404, "page not found"));
+})
+app.use((err, req, res, next) => {
+    const { statusCode = 500, message = 'Something went wrong' } = err;
+    res.status(statusCode).render('error', { statusCode, message });
+});
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

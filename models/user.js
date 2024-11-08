@@ -28,7 +28,17 @@ const UserSchema = new mongoose.Schema({
     zipcode: {type:String,required:true},
    
   },
-
+  geometry:{
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: false
+    },
+    coordinates: {
+      type: [Number],
+      required: false
+    }
+  },
 
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
