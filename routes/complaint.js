@@ -53,7 +53,7 @@ router.post("/", auth, async (req, res) => {
       predicted:prediArr
     });
     console.log(complaint);
-    //await complaint.save();
+    await complaint.save();
     res
       .status(201)
       .json({ msg: "Complaint submitted successfully", complaintNumber });
