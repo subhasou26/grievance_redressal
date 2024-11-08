@@ -15,24 +15,32 @@ router.get("/create-user", [auth, adminAuth], (req, res) => {
 });
 // Admin: Create user (employee, manager, ngo, municipal)
 router.post("/create-user", [auth, adminAuth], async (req, res) => {
-  const { name, email,role,address } = req.body;
+  const { name, email,role,address, geometry } = req.body;
   //console.log(req.body);
   try {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
+    if(geometry.coordinates[0]<85 || geometry.coordinates[0]>90){
+      return res.status(400).json({msg:"Wrong longitude"})
+    }
+    if(geometry.coordinates[1]<21 || geometry.coordinates[1]>28){
+      return res.status(400).json({msg:"Wrong latitude"})
+    }
+
     const password = crypto.randomInt(100, 999).toString();
     user = new User({
       name,
       email,
       password: await bcrypt.hash(password, 10),
       role,
-      address:address
+      address:address,
+      geometry
     });
 
     await user.save();
-
+   
     // Send email with credentials
     const mailOptions = {
       from: process.env.EMAIL,

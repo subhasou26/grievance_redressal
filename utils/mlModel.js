@@ -9,7 +9,7 @@ async function runModelOnImage(imageUrl) {
 
         // Capture output from stdout
         pythonProcess.stdout.on('data', (data) => {
-            result += data.toString();
+            result = data.toString().trim();
         });
 
         // Capture any errors
@@ -20,7 +20,7 @@ async function runModelOnImage(imageUrl) {
         // Handle process exit
         pythonProcess.on('exit', (code) => {
             if (code === 0) {
-                resolve(result.trim());  // Resolve with the final output
+                resolve(result);  // Resolve with the final output
             } else {
                 reject(`Process exited with code ${code}`);
             }
@@ -38,7 +38,7 @@ async function handleImageProcessing(imageUrl) {
     try {
         console.log("ml model")
         const prediction = await runModelOnImage(imageUrl);
-        console.log("Prediction Result:", prediction);
+        //console.log("Prediction Result:", prediction);
         // You can now send this prediction result with the complaint data
         return prediction;
     } catch (error) {
