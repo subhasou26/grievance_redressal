@@ -1,0 +1,52 @@
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    padding-right: 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"], input[type="email"], select {
+    width: 400px;
+    height: 20px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px; /* Add margin bottom to input fields */
+  }
+  
+  select {
+    height: 40px;
+    margin-bottom: 30px; /* Add extra margin bottom to select field */
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    height: 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  
+  #error-message {
+    color: red;
+    margin-bottom: 20px;
+  }
+  
+  #password-container {
+    margin-top: 20px;
+  }

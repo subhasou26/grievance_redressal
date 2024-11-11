@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComplainConnect</title>
+    <link rel="stylesheet" href="/css/municipal.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>ComplainConnect</h1>
+        <h2><%=municipal_user.name%></h2>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger-icon" id="hamburger-icon">
+        ☰
+    </div>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburger-menu">
+        <ul>
+            <li><a href="#profile-icon">Profile Icon</a></li>
+            <li><a href="#my-profile">My Profile</a></li>
+            <li><a href="#create-user">Create User</a></li>
+            <li><a href="#delete-user">Delete User</a></li>
+            <li id="logout"> <a herf="#logout"> Logout </a> </li>
+            <li>
+                <label>
+                    <input type="checkbox" id="hamburger-theme-switch">
+                    Dark Mode
+                </label>
+            </li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#complaints">Your Complaints</a></li>
+            <li><a href="#settings">Settings</a></li>
+        </ul>
+    </nav>
+
+    <!-- Body Section -->
+    <main>
+        <section id="complaints-sections">
+            <div id="complaints-filed" class="box blue-box">
+                <h2>Complaints Filed</h2>
+                <p>No complaints filed yet.</p>
+            </div>
+
+            <div id="complaints-pending" class="box red-box">
+                <h2>Complaints Pending</h2>
+                <p><%=complaints.length%></p>
+            </div>
+
+            <div id="complaints-resolved" class="box green-box">
+                <h2>Complaints Resolved</h2>
+                <p>No complaints resolved yet.</p>
+            </div>
+        </section>
+        
+        <!-- Complaints Table Section -->
+        <section id="complaints-table">
+            <h2>Complaints Table</h2>
+            <input type="text" id="search-bar" placeholder="Search complaints...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Complaint Number</th>
+                       <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="complaints-table-body">
+                    <% for( let complaint of complaints ) { %>
+                        <tr>
+                            <td><%=complaint.complaintNumber%></td>
+                            <td><%=complaint.description%></td>
+                            <td><%=complaint.status%></td>
+                        </tr>
+                    
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Chatbot Section -->
+    <div class="chatbot">
+        <div class="chat-header">
+            Chat with Us!
+            <span id="toggle-chatbot">_</span>
+        </div>
+        <div class="chat-body">
+            <div id="chat-output"></div>
+            <input type="text" id="chat-input" placeholder="Type your message here..." />
+        </div>
+    </div>
+    <div id="complaint-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="modal-close">&times;</span>
+            <h2>Complaint Details</h2>
+            <p><strong>Complaint Number:</strong> <span id="modal-complaint-number"></span></p>
+            <p><strong>Description:</strong> <span id="modal-description"></span></p>
+            <p><strong>Status:</strong> <span id="modal-status"></span></p>
+    
+            <h3>Solution</h3>
+            <textarea id="solution-text" placeholder="Write your solution here..."></textarea>
+            <button id="submit-solution">Submit Solution</button>
+        </div>
+    </div>
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Municipality. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/municipal.js"></script>
+</body>
+</html>

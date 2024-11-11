@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #combinedMap {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Combined Location Map</h1>
+    <div id="combinedMap"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize map
+        const map = L.map('combinedMap').setView([22.651922, 88.431188], 15);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Function to determine color based on complaint status
+        function getStatusColor(status) {
+            if (status === "Resolved") return "#008000"; // Green
+            if (status === "Pending") return "#FFFF00";  // Yellow
+            if (status === "In Progress") return "#FFA500"; // Orange
+            return "#FF0000"; // Red
+        }
+
+        // Get complaints and authorities data passed from the server
+        const complaints = <%- JSON.stringify(complaints) %>;
+        const authorities = <%- JSON.stringify(authorities) %>;
+
+        // // Add complaint markers
+        // complaints.forEach(complaint => {
+        //     const [lng, lat] = complaint.geometry.coordinates;
+        //     if (lng && lat) {
+        //         const color = getStatusColor(complaint.status);
+
+        //         L.circleMarker([lat, lng], {
+        //             radius: 8,
+        //             color: color,
+        //             fillColor: color,
+        //             fillOpacity: 0.7
+        //         }).addTo(map)
+        //           .bindPopup(`
+        //               <b>Complaint No:</b> ${complaint.complaintNumber}<br>
+        //               <b>Status:</b> ${complaint.status}<br>
+        //               <b>Description:</b> ${complaint.description}
+        //           `);
+        //     }
+        // });
+
+
+        // Function to calculate distance between two points in km using Haversine formula
+function getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+}
+
+// Add complaint markers
+complaints.forEach(complaint => {
+    const [complaintLng, complaintLat] = complaint.geometry.coordinates;
+    let matchedAuthorities = [];
+
+    // Find matching authorities within 5km
+    authorities.forEach(authority => {
+        const [authorityLng, authorityLat] = authority.geometry.coordinates;
+        const distance = getDistance(complaintLat, complaintLng, authorityLat, authorityLng);
+
+        if (distance <= 5) {
+            matchedAuthorities.push(authority.name); // Collect matching authorities
+        }
+    });
+
+    const color = getStatusColor(complaint.status);
+
+    L.circleMarker([complaintLat, complaintLng], {
+        radius: 8,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.7
+    }).addTo(map)
+      .bindPopup(`
+          <b>Complaint No:</b> ${complaint.complaintNumber}<br>
+          <b>Status:</b> ${complaint.status}<br>
+          <b>Description:</b> ${complaint.description}<br>
+          <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}
+      `);
+});
+
+// Add 5km radius circles around authorities (remains same as before)
+
+
+        // Add authority markers with 5km radius
+        authorities.forEach(authority => {
+            const [lng, lat] = authority.geometry.coordinates;
+            if (lng && lat) {
+                // Add marker for authority
+                L.marker([lat, lng]).addTo(map)
+                  .bindPopup(`
+                      <b>Name:</b> ${authority.name}<br>
+                      <b>Role:</b> ${authority.role}
+                  `);
+
+                // Add a 5km radius circle around the authority (non-interactive)
+                L.circle([lat, lng], {
+                    radius: 5000, // 5km in meters
+                    color: 'blue',
+                    fillColor: 'blue',
+                    fillOpacity: 0.1,
+                    interactive: false // Make the circle non-interactive
+                }).addTo(map);
+            }
+        });
+
+        // Fit the map to show all markers and circles
+        const allCoordinates = [
+            ...complaints.map(c => [c.geometry.coordinates[1], c.geometry.coordinates[0]]),
+            ...authorities.map(a => [a.geometry.coordinates[1], a.geometry.coordinates[0]])
+        ];
+
+        if (allCoordinates.length > 0) {
+            map.fitBounds(allCoordinates);
+        }
+    </script>
+</body>
+</html>
