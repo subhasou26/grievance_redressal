@@ -1,6 +1,7 @@
 const twilio=require("twilio");
-const accountSid = 'AC80893002dcfa20bfd8b5bc032f621181';
-const authToken = '7fd97f2351b57784c51db475ee9104f2';
+require("dotenv").config();
+const accountSid = process.env.TWILIO_SID;
+const authToken = process.env.TWILIO_TOKEN;
 const client = twilio(accountSid, authToken);
 async function sendSms(message,to){
   await  client.messages
