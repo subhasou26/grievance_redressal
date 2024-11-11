@@ -28,7 +28,7 @@
             <form action="/api/auth/forgot-password" method="GET">
               <button type="submit"> Forgot Password</button>
             </form>
-            <a href="#" id="signup">Signup</a> | <a href="#">Forgot Username</a>
+            <a href="#" id="signup">Signup</a> | <a href="#">Forgot Username</a> | <a href="#" id="otp-login">Otp-Login</a>
         </div>
     </div>
 </body>
@@ -39,6 +39,12 @@
         .addEventListener("click", function () {
           
           window.location.href = "register";
+        });
+      document
+        .getElementById("otp-login")
+        .addEventListener("click", function () {
+          
+          window.location.href = "send-otp";
         });
     });
   </script>

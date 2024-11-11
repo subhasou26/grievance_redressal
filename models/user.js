@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone:{
+    type:String,
+    unique:true,
+  },
   role: {
     type: String,
     enum: ['admin', 'employee', 'manager', 'municipal', 'ngo','public'],
@@ -39,7 +43,8 @@ const UserSchema = new mongoose.Schema({
       required: false
     }
   },
-
+  otp:{type:String},
+  optExpire:{type:Date},
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   createdAt: {

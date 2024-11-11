@@ -6,6 +6,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
+        phone:document.getElementById('phone').value,
         address: {
             street: document.getElementById('street').value,
             city: document.getElementById('city').value,

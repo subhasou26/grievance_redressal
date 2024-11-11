@@ -16,6 +16,12 @@ router.get("/login", authController.loginForm);
 // Login
 router.post("/login", wrapAsync(authController.login));
 
+router.get("/send-otp",wrapAsync(authController.otp_login_form));
+
+router.post("/send-otp",wrapAsync(authController.otp_send));
+
+router.post("/login-otp",wrapAsync(authController.otp_login));
+
 router.get("/logout", authController.logout);
 
 router.get("/forgot-password", authController.forgotPasswordForm);
