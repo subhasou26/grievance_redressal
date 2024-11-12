@@ -83,5 +83,57 @@ router.put("/:complaint_num", [auth, municipal], async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+router.get("/all", auth, async (req, res) => {
+  try {
+    const complaints = await Complaint.find();
+    res.json(complaints);
+  } catch (error) {
+    console.error("Error fetching complaints:", error);
+    res.status(500).json({ msg: "Failed to fetch complaints" });
+  }
+});
+// router.get('/map', auth, async (req, res) => {
+//   try {
+//     const complaints = await Complaint.find({}, "complaintNumber geometry description status"); // Fetch complaints if you want to render them server-side
+//       res.render('Grievance_map', { complaints });
+//       console.log('HEHEHE')
+
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ msg: 'Server error' });
+//   }
+// });
+
+router.get('/map', auth, async (req, res) => {
+  try {
+    const complaints = await Complaint.find({}, "complaintNumber geometry description status");
+    const authorities = await User.find({ 
+      role: { $in: ['municipal', 'ngo', 'employee', 'admin'] }, 
+      geometry: { $exists: true } 
+    }, "name role geometry");
+
+    // Send both complaints and authorities to the view
+    res.render('Combined_map', { complaints, authorities });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
+router.get('/combined-map', auth, async (req, res) => {
+  try {
+    const complaints = await Complaint.find({}, "complaintNumber geometry description status");
+    const authorities = await User.find(
+      { role: { $in: ['municipal', 'ngo', 'employee', 'admin'] }, geometry: { $exists: true, $ne: null } },
+      "name role geometry"
+    );
+
+    res.render('Combined_map', { complaints, authorities });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
 
 module.exports = router;

@@ -35,8 +35,12 @@ let address={
       password: hashedPassword,
       role: 'admin',
       address:address
+      
     });
-
+admin.geometry={
+  type: "Point",
+  coordinates: [87.8607,22.4352] // [longitude, latitude]
+}
     await admin.save();
     console.log('Admin user created successfully');
   } catch (err) {

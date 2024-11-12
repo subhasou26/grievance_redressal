@@ -5,7 +5,8 @@ const navBar = document.getElementById('nav-bar');
 const createUserForm = document.getElementById('create-user-form');
 const createUserLink = document.getElementById('create-user-link');
 const logout=document.getElementById("logout-btn");
-
+const map=document.getElementById("map");
+const combined_map=document.getElementById("combined-map");
 menuBtn.addEventListener('click', function() {
     navBar.classList.toggle('visible');
 });
@@ -14,6 +15,13 @@ logout.addEventListener("click",function(event){
     window.location.href="/api/auth/logout";
 });
 
+map.addEventListener("click",function (event){
+    
+    window.location.href="/api/complaint/map";
+})
+combined_map.addEventListener("click",function(){
+    window.location.href="/api/complaint/combined-map";
+})
 // Show the Create User form when the link is clicked
 createUserLink.addEventListener('click', function(event) {
     window.location.href="/api/admin/create-user";

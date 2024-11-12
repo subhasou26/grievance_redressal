@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('logout').addEventListener('click',function(){
         window.location.href='/api/auth/logout';
     })
+    document.getElementById("map").addEventListener("click",function(){
+        window.location.href='/api/complaint/map';
+    })
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
     }
