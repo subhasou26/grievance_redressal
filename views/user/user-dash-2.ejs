@@ -66,6 +66,7 @@
                             <th>Complaint Number</th>
                             <th>Description</th>
                             <th>Status</th>
+                            <th>Image</th>
                         </tr>
                     </thead>
                     <tbody id="complaints-table-body">
@@ -74,6 +75,15 @@
                                 <td><%= complain.complaintNumber %></td>
                                 <td><%= complain.description %></td>
                                 <td><%= complain.status %></td>
+                                <td>
+                                    <% if (complain.attachments) { %>
+                                        <a href="<%=complain.attachments %>" target="_blank">
+                                            View Image
+                                        </a>
+                                    <% } else { %>
+                                        No Image Available
+                                    <% } %>
+                                </td>
                                 <td style="display: none;"><%= complain.response %></td>
                             </tr>
                         <% } %>
