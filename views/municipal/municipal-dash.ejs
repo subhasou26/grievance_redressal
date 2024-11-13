@@ -81,6 +81,7 @@
                         <th>Complaint Number</th>
                        <th>Description</th>
                         <th>Status</th>
+                        <th>Image</th>
                     </tr>
                 </thead>
                 <tbody id="complaints-table-body">
@@ -89,6 +90,15 @@
                             <td><%=complaint.complaintNumber%></td>
                             <td><%=complaint.description%></td>
                             <td><%=complaint.status%></td>
+                            <td>
+                                <% if (complaint.attachments) { %>
+                                    <a href="<%=complaint.attachments %>" target="_blank">
+                                        View Image
+                                    </a>
+                                <% } else { %>
+                                    No Image Available
+                                <% } %>
+                            </td>
                         </tr>
                     
                     <% } %>
