@@ -38,6 +38,13 @@ router.post("/", auth, async (req, res) => {
 
       // Pass image URL to Python ML model for processing
       const prediction = await handleImageProcessing(imageUrl); // Assume this function calls your ML model
+      const text=prediction.split(":");
+      if(text[1].trim()==='Unknown'){
+       return res
+        .status(400)
+        .json({ msg: "Does't match tag" });
+      }
+      console.log(text[1].trim())
       console.log(`Prediction for image: ${prediction}`);
       prediArr.push(prediction);
       //console.log(prediction);

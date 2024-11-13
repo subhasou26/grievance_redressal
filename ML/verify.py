@@ -28,7 +28,7 @@ def predict_image_class_from_url(url, threshold=0.7):
     if predicted_probability >= threshold:
         return f'Predicted class: {class_labels[predicted_class_index[0]]}'
     else:
-        return 'Predicted class: Unknown (below confidence threshold)'
+        return 'Predicted class: Unknown'
 
 if __name__ == "__main__":
     # Get the image URL from the command line argument
