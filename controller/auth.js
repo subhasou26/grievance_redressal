@@ -7,6 +7,7 @@ require("dotenv").config();
 
 module.exports.signupForm=(req,res)=>{
     res.render("auth/signup.ejs");
+    //he
 }
 
 
