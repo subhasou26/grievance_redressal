@@ -1,3 +1,4 @@
+/* General Styles (PC Resolution) */
 * {
     margin: 0;
     padding: 0;
@@ -120,7 +121,8 @@ body {
     padding: 20px;
     margin-top: 20px;
 }
-/* Modal styles */
+
+/* Modal Styles */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; 
@@ -151,4 +153,79 @@ body {
 .close:hover, .close:focus {
     color: black;
     cursor: pointer;
+}
+
+/* Mobile Styles */
+.hamburger {
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: white;
+    display: none; /* Default hidden */
+    cursor: pointer;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+}
+
+#floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff9900;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: block; 
+    z-index: 1000;
+}
+#floating-button:hover {
+    background-color: #e68a00;
+}
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #002147;
+        overflow-y: auto;
+        transition: 0.3s;
+        z-index: 1000;
+    }
+
+    .sidebar.open {
+        display: block;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .dashboard-cards {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .hamburger {
+        display: block; /* Visible on mobile */
+    }
+
+    #floating-button {
+        display: block; /* Visible on mobile */
+    }
 }

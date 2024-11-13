@@ -3,21 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combined Map</title>
+    <title>Grievances Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            background-color: #6d0a85;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000; /* Ensure the header stays on top */
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .header .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .info-container {
+            padding: 10px 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px auto;
+            border-radius: 5px;
+            max-width: 1200px;
+        }
+
+        .info-container p {
+            font-size: 16px;
+            color: #333;
+        }
+
         #combinedMap {
-            height: 500px;
+            height: calc(100vh - 120px); /* Make map height fill remaining space */
             width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            #combinedMap {
+                height: calc(100vh - 100px); /* Adjust map height on smaller screens */
+            }
+
+            .info-container p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #combinedMap {
+                height: calc(100vh - 80px); /* Adjust map height on mobile */
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .info-container p {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Combined Location Map</h1>
+    <div class="header">
+        <h1>Grievances Map</h1>
+        <a href="/api/dashbord/public#" class="back-link">← Back to Dashboard</a>
+    </div>
+
+    <div class="info-container">
+        <p>This map displays all grievances along with their respective authorities within a 5km radius. Colors indicate the status of each complaint.</p>
+    </div>
+
     <div id="combinedMap"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
     <script>
         // Initialize map
         const map = L.map('combinedMap').setView([22.651922, 88.431188], 15);
@@ -40,96 +119,69 @@
         const complaints = <%- JSON.stringify(complaints) %>;
         const authorities = <%- JSON.stringify(authorities) %>;
 
-        // // Add complaint markers
-        // complaints.forEach(complaint => {
-        //     const [lng, lat] = complaint.geometry.coordinates;
-        //     if (lng && lat) {
-        //         const color = getStatusColor(complaint.status);
-
-        //         L.circleMarker([lat, lng], {
-        //             radius: 8,
-        //             color: color,
-        //             fillColor: color,
-        //             fillOpacity: 0.7
-        //         }).addTo(map)
-        //           .bindPopup(`
-        //               <b>Complaint No:</b> ${complaint.complaintNumber}<br>
-        //               <b>Status:</b> ${complaint.status}<br>
-        //               <b>Description:</b> ${complaint.description}
-        //           `);
-        //     }
-        // });
-
-
-        // Function to calculate distance between two points in km using Haversine formula
-function getDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the Earth in km
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLon = (lon2 - lon1) * (Math.PI / 180);
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in km
-}
-
-// Add complaint markers
-complaints.forEach(complaint => {
-    const [complaintLng, complaintLat] = complaint.geometry.coordinates;
-    let matchedAuthorities = [];
-
-    // Find matching authorities within 5km
-    authorities.forEach(authority => {
-        const [authorityLng, authorityLat] = authority.geometry.coordinates;
-        const distance = getDistance(complaintLat, complaintLng, authorityLat, authorityLng);
-
-        if (distance <= 5) {
-            matchedAuthorities.push(authority.name); // Collect matching authorities
+        // Function to calculate distance using Haversine formula
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * (Math.PI / 180);
+            const dLon = (lon2 - lon1) * (Math.PI / 180);
+            const a = Math.sin(dLat / 2) ** 2 +
+                      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+                      Math.sin(dLon / 2) ** 2;
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
         }
-    });
 
-    const color = getStatusColor(complaint.status);
+        // Add complaint markers
+        complaints.forEach(complaint => {
+            const [complaintLng, complaintLat] = complaint.geometry.coordinates;
+            let matchedAuthorities = [];
 
-    L.circleMarker([complaintLat, complaintLng], {
-        radius: 8,
-        color: color,
-        fillColor: color,
-        fillOpacity: 0.7
-    }).addTo(map)
-      .bindPopup(`
-          <b>Complaint No:</b> ${complaint.complaintNumber}<br>
-          <b>Status:</b> ${complaint.status}<br>
-          <b>Description:</b> ${complaint.description}<br>
-          <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}
-      `);
-});
+            authorities.forEach(authority => {
+                const [authorityLng, authorityLat] = authority.geometry.coordinates;
+                const distance = getDistance(complaintLat, complaintLng, authorityLat, authorityLng);
 
-// Add 5km radius circles around authorities (remains same as before)
+                if (distance <= 5) {
+                    matchedAuthorities.push(authority.name);
+                }
+            });
 
+            const color = getStatusColor(complaint.status);
+
+            L.circleMarker([complaintLat, complaintLng], {
+                radius: 8,
+                color: color,
+                fillColor: color,
+                fillOpacity: 0.7
+            }).addTo(map)
+              .bindPopup(`
+                  <b>Complaint No:</b> ${complaint.complaintNumber}<br>
+                  <b>Status:</b> ${complaint.status}<br>
+                  <b>Description:</b> ${complaint.description}<br>
+                  <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}
+              `);
+        });
 
         // Add authority markers with 5km radius
         authorities.forEach(authority => {
             const [lng, lat] = authority.geometry.coordinates;
             if (lng && lat) {
-                // Add marker for authority
                 L.marker([lat, lng]).addTo(map)
                   .bindPopup(`
                       <b>Name:</b> ${authority.name}<br>
                       <b>Role:</b> ${authority.role}
                   `);
 
-                // Add a 5km radius circle around the authority (non-interactive)
                 L.circle([lat, lng], {
-                    radius: 5000, // 5km in meters
+                    radius: 5000,
                     color: 'blue',
                     fillColor: 'blue',
                     fillOpacity: 0.1,
-                    interactive: false // Make the circle non-interactive
+                    interactive: false
                 }).addTo(map);
             }
         });
 
-        // Fit the map to show all markers and circles
+        // Fit the map to show all markers
         const allCoordinates = [
             ...complaints.map(c => [c.geometry.coordinates[1], c.geometry.coordinates[0]]),
             ...authorities.map(a => [a.geometry.coordinates[1], a.geometry.coordinates[0]])
