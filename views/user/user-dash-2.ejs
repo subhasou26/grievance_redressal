@@ -8,25 +8,24 @@
     <script src="/js/user-dash.js" defer></script>
 </head>
 <script>
-    const complaints=<%-JSON.stringify(complaint)%>
+    const complaints = <%- JSON.stringify(complaint) %>
 </script>
 <body>
-    
     <div class="header">
         <div class="logo">
             <img src="https://www.biyanitechnologies.com/img/gecr16a.jpg" alt="Government Logo">
-            <h1>Public Grievances Portal
-            </h1>
+            <h1>Complaint Connect</h1>
             <br>
-            <h2><%=public_user.name%></h2>
+            <h2><%= public_user.name %></h2>
         </div>
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
         <div class="user-info">
             <p id="welcome-message"></p>
         </div>
     </div>
 
     <div class="container">
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar">
             <ul>
                 <li><a href="#">Appeal Dashboard</a></li>
                 <li><a href="#" id="lunch_complaint">Lodge Public Grievance</a></li>
@@ -34,6 +33,7 @@
                 <li><a href="#">Account Activity</a></li>
                 <li><a href="#">Edit Profile</a></li>
                 <li><a href="#">Change Password</a></li>
+                <li><a href="/api/complaint/map">Grievances Map</a></li>
                 <li><a href="#" id="sign-out">Sign out</a></li>
             </ul>
         </div>
@@ -63,21 +63,19 @@
                 <table>
                     <thead>
                         <tr>
-                           
                             <th>Complaint Number</th>
                             <th>Description</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="complaints-table-body">
-                        <% for( let complain of complaint ) { %>
+                        <% for (let complain of complaint) { %>
                             <tr>
-                                <td><%=complain.complaintNumber%></td>
-                                <td><%=complain.description%></td>
-                                <td><%=complain.status%></td>
-                                <td style="display: none;"><%=complain.response%></td>
+                                <td><%= complain.complaintNumber %></td>
+                                <td><%= complain.description %></td>
+                                <td><%= complain.status %></td>
+                                <td style="display: none;"><%= complain.response %></td>
                             </tr>
-                        
                         <% } %>
                     </tbody>
                     <tbody id="grievances-list">
@@ -87,6 +85,7 @@
             </div>
         </div>
     </div>
+
     <div id="complaint-modal" class="modal">
         <div class="modal-content">
             <span class="close" id="modal-close">&times;</span>
@@ -94,13 +93,18 @@
             <p><strong>Complaint Number:</strong> <span id="modal-complaint-number"></span></p>
             <p><strong>Description:</strong> <span id="modal-description"></span></p>
             <p><strong>Status:</strong> <span id="modal-status"></span></p>
-            <p><strong>Status:</strong> <span id="modal-responce"></span></p>
-    
-     
-           
+            <p><strong>Response:</strong> <span id="modal-responce"></span></p>
         </div>
     </div>
-    
+
+    <!-- Floating Lodge Complaint Button for Phones -->
+    <div id="floating-button" onclick="location.href='/api/complaint'">+</div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+    </script>
 </body>
 <script src="/js/user-dash.js"></script>
 </html>
