@@ -9,6 +9,7 @@ require("dotenv").config();
 const router = express.Router();
 
 router.get("/create-user", [auth, adminAuth], (req, res) => {
+  
   // res.send("hello");
 
   res.render("admin/create-user.ejs");
