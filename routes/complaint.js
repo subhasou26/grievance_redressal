@@ -5,6 +5,8 @@ const Complaint = require("../models/complaint");
 const User = require("../models/user");
 const uploadImageToS3 = require("../utils/uploadImage");
 const handleImageProcessing = require("../utils/mlModel");
+const sendMail=require("../utils/mail");
+const sendSms=require("../utils/sendSms");
 //  "/api/complaint"
 
 router.get("/", auth, async (req, res) => {
