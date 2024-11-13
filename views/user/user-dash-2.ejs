@@ -106,6 +106,45 @@
             <p><strong>Response:</strong> <span id="modal-responce"></span></p>
         </div>
     </div>
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <div class="chat-header" id="chat-toggle">Chatbot (Click to Open/Close)</div>
+        <div class="chat-body hidden">
+            <div id="chat-output"></div>
+            <div class="smart-suggestions" id="smart-suggestions">
+                <button class="quick-reply">File a Complaint</button>
+                <button class="quick-reply">View Complaint Status</button>
+                <button class="quick-reply">Get Help</button>
+            </div>
+            <div class="feedback-option">
+                <button class="quick-reply">Rate Us</button>
+            </div>
+            <div class="input-area">
+                <button id="voice-input">🎤</button>
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-btn">Send</button>
+            </div>
+            <div class="location-upload">
+            
+                <input type="file" id="file-upload" />
+                <div id="location-file-upload-container">
+                    <!-- Share Location Icon -->
+                    <button id="share-location">
+                        📍 Share Location
+                    </button>
+                
+                    <!-- File Upload Box -->
+                    <div id="file-upload-box">
+                        <label id="file-upload-label" for="file-upload">
+                            📎
+                        </label>
+                        <input type="file" id="file-upload" style="display: none;" />
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
     <!-- Floating Lodge Complaint Button for Phones -->
     <div id="floating-button" onclick="location.href='/api/complaint'">+</div>
 
