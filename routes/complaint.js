@@ -138,11 +138,11 @@ router.get("/map", auth, async (req, res) => {
   try {
     const complaints = await Complaint.find(
       {},
-      "complaintNumber geometry description status"
+      "complaintNumber geometry description status authoriti_ids "
     );
     const authorities = await User.find(
       {
-        role: { $in: ["municipal", "ngo", "employee", "admin"] },
+        role: { $in: ["municipal", "ngo", "employee"] },
         geometry: { $exists: true },
       },
       "name role geometry"

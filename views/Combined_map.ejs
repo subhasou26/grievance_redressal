@@ -100,13 +100,13 @@
     <script>
         // Initialize map
         const map = L.map('combinedMap').setView([22.651922, 88.431188], 15);
-
+    
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
-
+    
         // Function to determine color based on complaint status
         function getStatusColor(status) {
             if (status === "Resolved") return "#008000"; // Green
@@ -114,11 +114,11 @@
             if (status === "In Progress") return "#FFA500"; // Orange
             return "#FF0000"; // Red
         }
-
+    
         // Get complaints and authorities data passed from the server
         const complaints = <%- JSON.stringify(complaints) %>;
         const authorities = <%- JSON.stringify(authorities) %>;
-
+    
         // Function to calculate distance using Haversine formula
         function getDistance(lat1, lon1, lat2, lon2) {
             const R = 6371;
@@ -130,23 +130,26 @@
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
         }
-
+    
         // Add complaint markers
         complaints.forEach(complaint => {
             const [complaintLng, complaintLat] = complaint.geometry.coordinates;
-            let matchedAuthorities = [];
-
-            authorities.forEach(authority => {
-                const [authorityLng, authorityLat] = authority.geometry.coordinates;
-                const distance = getDistance(complaintLat, complaintLng, authorityLat, authorityLng);
-
-                if (distance <= 5) {
-                    matchedAuthorities.push(authority.name);
-                }
-            });
-
+    
+            // Get matched authorities by id
+            const matchedAuthorities = complaint.authoriti_ids
+                .map(id => authorities.find(auth => auth._id === id)?.name)
+                .filter(name => name);  // Filter out undefined names
+    
+            // Get available authorities within a 5km radius
+            const availableAuthorities = authorities
+                .filter(authority => {
+                    const [authorityLng, authorityLat] = authority.geometry.coordinates;
+                    return getDistance(complaintLat, complaintLng, authorityLat, authorityLng) <= 5;
+                })
+                .map(authority => authority.name);
+    
             const color = getStatusColor(complaint.status);
-
+    
             L.circleMarker([complaintLat, complaintLng], {
                 radius: 8,
                 color: color,
@@ -157,10 +160,11 @@
                   <b>Complaint No:</b> ${complaint.complaintNumber}<br>
                   <b>Status:</b> ${complaint.status}<br>
                   <b>Description:</b> ${complaint.description}<br>
-                  <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}
+                  <b>Matched Authorities:</b> ${matchedAuthorities.join(", ") || 'None'}<br>
+                  <b>Available Authorities:</b> ${availableAuthorities.join(", ") || 'None'}
               `);
         });
-
+    
         // Add authority markers with 5km radius
         authorities.forEach(authority => {
             const [lng, lat] = authority.geometry.coordinates;
@@ -170,7 +174,7 @@
                       <b>Name:</b> ${authority.name}<br>
                       <b>Role:</b> ${authority.role}
                   `);
-
+    
                 L.circle([lat, lng], {
                     radius: 5000,
                     color: 'blue',
@@ -180,16 +184,18 @@
                 }).addTo(map);
             }
         });
-
+    
         // Fit the map to show all markers
         const allCoordinates = [
             ...complaints.map(c => [c.geometry.coordinates[1], c.geometry.coordinates[0]]),
             ...authorities.map(a => [a.geometry.coordinates[1], a.geometry.coordinates[0]])
         ];
-
+    
         if (allCoordinates.length > 0) {
             map.fitBounds(allCoordinates);
         }
     </script>
+    
+    
 </body>
 </html>
