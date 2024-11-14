@@ -6,7 +6,7 @@ const createUserForm = document.getElementById('create-user-form');
 const createUserLink = document.getElementById('create-user-link');
 const logout=document.getElementById("logout-btn");
 const map=document.getElementById("map");
-const combined_map=document.getElementById("combined-map");
+const combined_map=document.getElementById("export");
 menuBtn.addEventListener('click', function() {
     navBar.classList.toggle('visible');
 });
@@ -20,7 +20,7 @@ map.addEventListener("click",function (event){
     window.location.href="/api/complaint/map";
 })
 combined_map.addEventListener("click",function(){
-    window.location.href="/api/complaint/combined-map";
+    window.location.href="/api/complaint/export-complaints";
 })
 // Show the Create User form when the link is clicked
 createUserLink.addEventListener('click', function(event) {

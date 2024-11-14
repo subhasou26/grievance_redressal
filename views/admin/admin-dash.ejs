@@ -34,7 +34,7 @@
             <li><a href="#" id="create-user-link">Create User</a></li>
             <li><a href="#">Delete User</a></li>
             <li><a href="#" id="map">Map</a></li>
-            <li><a href="#" id="combined-map">Combined Map</a></li>
+            <li><a href="#" id="export">Export complaint report</a></li>
             <li>
                 <label for="theme-switch">Dark Mode</label>
                 <label class="toggle-switch">
@@ -70,7 +70,7 @@
             <h2>Total Active Complaints</h2>
             <p><%=complaints.length%></p> <!-- Replace with dynamic content -->
         </div>
-        <div class="box resolved-complaints">
+        <div class="box resolved-complaints" id="resolved">
             <h2>Resolved & In-Progress Complaints</h2>
             <p>0</p> <!-- Replace with dynamic content -->
         </div>

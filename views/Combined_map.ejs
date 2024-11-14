@@ -118,6 +118,10 @@
         // Get complaints and authorities data passed from the server
         const complaints = <%- JSON.stringify(complaints) %>;
         const authorities = <%- JSON.stringify(authorities) %>;
+        
+        console.log(authorities)
+        console.log(complaints)
+
 
         // Function to calculate distance using Haversine formula
         function getDistance(lat1, lon1, lat2, lon2) {
@@ -135,6 +139,10 @@
         complaints.forEach(complaint => {
             const [complaintLng, complaintLat] = complaint.geometry.coordinates;
             let matchedAuthorities = [];
+
+            const mainAuthorities=complaint.authoriti_ids
+            .map(id=>authorities.find(auth=>auth._id==id)?.name)
+            .filter(name=>name);
 
             authorities.forEach(authority => {
                 const [authorityLng, authorityLat] = authority.geometry.coordinates;
@@ -157,7 +165,10 @@
                   <b>Complaint No:</b> ${complaint.complaintNumber}<br>
                   <b>Status:</b> ${complaint.status}<br>
                   <b>Description:</b> ${complaint.description}<br>
-                  <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}
+                  <b>Main Authorities:</b> ${mainAuthorities.join(", ")}<br>
+                  <b>Matched Authorities:</b> ${matchedAuthorities.join(", ")}<br>
+                  <b><a href="${complaint.attachments}" target="_blank"><img src="${complaint.attachments}"  height=100px width=100px></img></a> </b> 
+
               `);
         });
 

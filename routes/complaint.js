@@ -1,5 +1,5 @@
 const express = require("express");
-const { auth, municipal } = require("../middleware/auth");
+const { auth, municipal ,authoriti} = require("../middleware/auth");
 const router = express.Router();
 const Complaint = require("../models/complaint");
 const User = require("../models/user");
@@ -7,6 +7,8 @@ const uploadImageToS3 = require("../utils/uploadImage");
 const handleImageProcessing = require("../utils/mlModel");
 const sendMail = require("../utils/mail");
 const sendSms = require("../utils/sendSms");
+const axios = require('axios');
+const ExcelJS = require('exceljs');
 //  "/api/complaint"
 
 router.get("/", auth, async (req, res) => {
@@ -42,7 +44,7 @@ router.post("/", auth, async (req, res) => {
       if(text[1].trim()==='Unknown'){
        return res
         .status(400)
-        .json({ msg: "Does't match tag" });
+        .json({ msg: "Image does't match tag" });
       }
       console.log(text[1].trim())
       console.log(`Prediction for image: ${prediction}`);
@@ -83,16 +85,17 @@ https://grievance-redressal.vercel.app/api/auth/login `,
   }
 });
 
-router.put("/:complaint_num", [auth, municipal], async (req, res) => {
+router.put("/:complaint_num",[auth,municipal], async (req, res) => {
   try {
     const complaint_num = req.params.complaint_num;
     const { status, response } = req.body;
-
+    console.log(complaint_num)
     const updatedComplaint = await Complaint.findOneAndUpdate(
       { complaintNumber: { $in: complaint_num } },
       { status, response, updatedAt: Date.now() },
       { new: true }
     );
+    console.log(updatedComplaint)
     const myUser = await User.findById(updatedComplaint.userId);
     const mailOptions = {
       from: process.env.EMAIL,
@@ -114,7 +117,7 @@ https://grievance-redressal.vercel.app/api/auth/login `,
     res.status(500).json({ message: err.message });
   }
 });
-router.get("/all", auth, async (req, res) => {
+router.get("/all",async (req, res) => {
   try {
     const complaints = await Complaint.find();
     res.json(complaints);
@@ -135,15 +138,15 @@ router.get("/all", auth, async (req, res) => {
 //   }
 // });
 
-router.get("/map", auth, async (req, res) => {
+router.get("/map", [auth], async (req, res) => {
   try {
     const complaints = await Complaint.find(
       {},
-      "complaintNumber geometry description status"
+      "complaintNumber geometry description status authoriti_ids attachments"
     );
     const authorities = await User.find(
       {
-        role: { $in: ["municipal", "ngo", "employee", "admin"] },
+        role: { $in: ["municipal", "ngo", "employee"] },
         geometry: { $exists: true },
       },
       "name role geometry"
@@ -161,7 +164,7 @@ router.get("/combined-map", auth, async (req, res) => {
   try {
     const complaints = await Complaint.find(
       {},
-      "complaintNumber geometry description status"
+      "complaintNumber geometry description status "
     );
     const authorities = await User.find(
       {
@@ -177,5 +180,54 @@ router.get("/combined-map", auth, async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+router.get("/export-complaints",async(req,res)=>{
+  try {
+    // Fetch the complaint data from the existing JSON route
+    const response = await axios.get('http://localhost:5000/api/complaint/all');
+    const complaintData = response.data;
 
+    // Create a new Excel workbook and worksheet
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Complaints');
+
+    // Define headers based on the fields in your complaint data
+    worksheet.columns = [
+      { header: 'Complaint ID', key: 'complaintId', width: 20 },
+      { header: 'User Name', key: 'userName', width: 30 },
+      { header: 'Description', key: 'description', width: 40 },
+      { header: 'Images', key: 'image', width: 40 },
+      { header: 'Cordinates', key: 'cordinates', width: 15 },
+      { header: 'Status', key: 'status', width: 15 },
+      { header: 'Response', key: 'response', width: 15 },
+      // Add more columns as needed based on your data structure
+    ];
+
+    // Add each complaint data as a row in the Excel sheet
+    complaintData.forEach(complaint => {
+      worksheet.addRow({
+        complaintId: complaint._id,
+        userName: complaint.userId, // Adjust according to your JSON structure
+        description: complaint.description,
+        cordinates: complaint.geometry.coordinates,
+        status: complaint.status,
+        response:complaint.response,
+        image: { text: complaint.attachments[0], hyperlink: complaint.attachments[0] }
+        // Add more fields as per your data structure
+      });
+    });
+
+    // Set the response headers and send the Excel file
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader('Content-Disposition', 'attachment; filename=complaints.xlsx');
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (error) {
+    console.error('Error generating Excel file:', error);
+    res.status(500).send('Error generating Excel file');
+  }
+})
 module.exports = router;

@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grievances = complaints;
     console.log(grievances);
-
-   
     const totalRegisteredElement = document.getElementById('total-registered');
     const pendingGrievancesElement = document.getElementById('pending-grievances');
     const closedGrievancesElement = document.getElementById('closed-grievances');
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStatistics(grievances) {
         const totalRegistered = grievances.length;
         const pendingGrievances = grievances.filter(grievance => grievance.status.toLowerCase() === 'pending').length;
-        const closedGrievances = grievances.filter(grievance => grievance.status.toLowerCase() === 'Resolved').length;
+        const closedGrievances = grievances.filter(grievance => grievance.status.toLowerCase() === 'resolved').length;
 
         totalRegisteredElement.textContent = totalRegistered;
         pendingGrievancesElement.textContent = pendingGrievances;
@@ -54,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const complaintNumber = this.querySelector("td:nth-child(1)").innerText;
             const description = this.querySelector("td:nth-child(2)").innerText;
             const status = this.querySelector("td:nth-child(3)").innerText;
-            const responce=this.querySelector("td:nth-child(4)").innerText;
+            const responce=this.querySelector("td:nth-child(5)").innerText;
             // Set selected complaint id (this would come from your server in a real app)
             
             // Populate modal with complaint details
